@@ -1,0 +1,44 @@
+<view class="container">
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <input class="search-input" placeholder="搜索员工姓名、部门或职位" value="{{searchKey}}" bindinput="onSearchInput" />
+  </view>
+
+  <!-- 添加按钮 -->
+  <view class="add-btn-container">
+    <button class="add-btn" bindtap="addEmployee">+ 添加员工</button>
+  </view>
+
+  <!-- 员工列表 -->
+  <view class="employee-list">
+    <block wx:for="{{employees}}" wx:key="id">
+      <view class="employee-item">
+        <view class="employee-info">
+          <view class="employee-name">{{item.name}}</view>
+          <view class="employee-meta">
+            <text class="department">{{item.department}}</text>
+            <text class="position">{{item.position}}</text>
+          </view>
+          <view class="employee-contact">
+            <text class="phone">{{item.phone}}</text>
+            <text class="email">{{item.email}}</text>
+          </view>
+          <view class="employee-details">
+            <text class="entry-date">入职日期: {{item.entryDate}}</text>
+            <text class="status status-{{item.status}}">{{item.status}}</text>
+          </view>
+        </view>
+        <view class="employee-actions">
+          <button class="action-btn view-btn" bindtap="viewEmployeeDetail" data-id="{{item.id}}">查看</button>
+          <button class="action-btn edit-btn" bindtap="editEmployee" data-id="{{item.id}}">编辑</button>
+          <button class="action-btn delete-btn" bindtap="deleteEmployee" data-id="{{item.id}}">删除</button>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{employees.length === 0}}">
+    <text class="empty-text">暂无员工数据</text>
+  </view>
+</view>

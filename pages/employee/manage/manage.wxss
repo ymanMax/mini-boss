@@ -1,0 +1,169 @@
+.container {
+  padding: 20rpx;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+/* 搜索栏样式 */
+.search-bar {
+  margin-bottom: 20rpx;
+}
+
+.search-input {
+  width: 100%;
+  padding: 20rpx;
+  border-radius: 10rpx;
+  background-color: white;
+  font-size: 28rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+/* 添加按钮样式 */
+.add-btn-container {
+  margin-bottom: 30rpx;
+}
+
+.add-btn {
+  width: 100%;
+  padding: 25rpx;
+  background-color: #019fa0;
+  color: white;
+  border: none;
+  border-radius: 10rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+}
+
+/* 员工列表样式 */
+.employee-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.employee-item {
+  background-color: white;
+  border-radius: 10rpx;
+  padding: 30rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.employee-info {
+  flex: 1;
+  margin-right: 30rpx;
+}
+
+.employee-name {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15rpx;
+}
+
+.employee-meta {
+  display: flex;
+  gap: 20rpx;
+  margin-bottom: 15rpx;
+}
+
+.department {
+  background-color: #e8f5e8;
+  color: #2e7d32;
+  padding: 8rpx 16rpx;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+}
+
+.position {
+  background-color: #e3f2fd;
+  color: #1565c0;
+  padding: 8rpx 16rpx;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+}
+
+.employee-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+  margin-bottom: 15rpx;
+  font-size: 26rpx;
+  color: #666;
+}
+
+.employee-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.entry-date {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.status {
+  padding: 6rpx 12rpx;
+  border-radius: 15rpx;
+  font-size: 22rpx;
+  font-weight: bold;
+}
+
+.status-在职 {
+  background-color: #c8e6c9;
+  color: #2e7d32;
+}
+
+.status-离职 {
+  background-color: #ffccbc;
+  color: #c62828;
+}
+
+.status-待入职 {
+  background-color: #fff9c4;
+  color: #f57c00;
+}
+
+/* 操作按钮样式 */
+.employee-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+}
+
+.action-btn {
+  padding: 15rpx 20rpx;
+  border: none;
+  border-radius: 8rpx;
+  font-size: 24rpx;
+  min-width: 80rpx;
+}
+
+.view-btn {
+  background-color: #e3f2fd;
+  color: #1565c0;
+}
+
+.edit-btn {
+  background-color: #fff9c4;
+  color: #f57c00;
+}
+
+.delete-btn {
+  background-color: #ffcdd2;
+  color: #c62828;
+}
+
+/* 空状态样式 */
+.empty-state {
+  text-align: center;
+  padding: 100rpx 0;
+  color: #999;
+}
+
+.empty-text {
+  font-size: 32rpx;
+}

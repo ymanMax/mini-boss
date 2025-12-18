@@ -1,0 +1,86 @@
+<view class="container">
+  <!-- 标签切换 -->
+  <view class="tab-container">
+    <view class="tab {{activeTab === 'kpi' ? 'active' : ''}}" data-tab="kpi" bindtap="switchTab">
+      KPI设定
+    </view>
+    <view class="tab {{activeTab === 'assessment' ? 'active' : ''}}" data-tab="assessment" bindtap="switchTab">
+      绩效考核
+    </view>
+  </view>
+
+  <!-- KPI设定内容 -->
+  <view class="content" wx:if="{{activeTab === 'kpi'}}">
+    <view class="add-btn-container">
+      <button class="add-btn" bindtap="addKPI">+ 添加KPI设定</button>
+    </view>
+
+    <view class="kpi-list">
+      <block wx:for="{{kpiItems}}" wx:key="id">
+        <view class="kpi-item" bindtap="viewKPIDetail" data-id="{{item.id}}">
+          <view class="kpi-header">
+            <view class="employee-info">
+              <text class="employee-name">{{item.employeeName}}</text>
+              <text class="period">{{item.period}}</text>
+            </view>
+          </view>
+          <view class="kpi-objectives">
+            <block wx:for="{{item.objectives}}" wx:key="index">
+              <view class="objective-item">
+                <text class="objective-content">{{index + 1}}. {{item.content}}</text>
+                <text class="objective-weight">(权重: {{item.weight}}%)</text>
+              </view>
+            </block>
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <view class="empty-state" wx:if="{{kpiItems.length === 0}}">
+      <text class="empty-text">暂无KPI设定数据</text>
+    </view>
+  </view>
+
+  <!-- 绩效考核内容 -->
+  <view class="content" wx:if="{{activeTab === 'assessment'}}">
+    <view class="add-btn-container">
+      <button class="add-btn" bindtap="addAssessment">+ 添加绩效考核</button>
+    </view>
+
+    <view class="assessment-list">
+      <block wx:for="{{assessments}}" wx:key="id">
+        <view class="assessment-item" bindtap="viewAssessmentDetail" data-id="{{item.id}}">
+          <view class="assessment-header">
+            <view class="employee-info">
+              <text class="employee-name">{{item.employeeName}}</text>
+              <text class="period">{{item.period}}</text>
+            </view>
+            <view class="total-score">总分: {{item.totalScore}}</view>
+          </view>
+          <view class="assessment-details">
+            <view class="score-details">
+              <block wx:for="{{item.scores}}" wx:key="index">
+                <view class="score-item">
+                  <text class="objective">{{item.objective}}</text>
+                  <text class="score">{{item.score}}分 ({{item.weight}}%)</text>
+                </view>
+              </block>
+            </view>
+            <view class="assessment-meta">
+              <text class="assessor">考评人: {{item.assessor}}</text>
+              <text class="assess-date">考评日期: {{item.assessDate}}</text>
+            </view>
+            <view class="comment" wx:if="{{item.comment}}">
+              <text class="comment-label">评语:</text>
+              <text class="comment-content">{{item.comment}}</text>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <view class="empty-state" wx:if="{{assessments.length === 0}}">
+      <text class="empty-text">暂无绩效考核数据</text>
+    </view>
+  </view>
+</view>

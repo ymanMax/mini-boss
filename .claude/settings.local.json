@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir:*)",
+      "Bash(npm install)",
+      "Bash(tree /f C:UsersThinkCentreDesktopmini-bosspagesemployee)",
+      "Bash(dir:*)"
+    ]
+  }
+}

@@ -1,0 +1,216 @@
+.container {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+/* 标签切换样式 */
+.tab-container {
+  display: flex;
+  background-color: white;
+  border-bottom: 2rpx solid #e0e0e0;
+}
+
+.tab {
+  flex: 1;
+  padding: 30rpx;
+  text-align: center;
+  font-size: 32rpx;
+  color: #666;
+  position: relative;
+}
+
+.tab.active {
+  color: #019fa0;
+  font-weight: bold;
+}
+
+.tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60rpx;
+  height: 4rpx;
+  background-color: #019fa0;
+}
+
+/* 内容区域样式 */
+.content {
+  padding: 20rpx;
+}
+
+/* 添加按钮样式 */
+.add-btn-container {
+  margin-bottom: 30rpx;
+}
+
+.add-btn {
+  width: 100%;
+  padding: 25rpx;
+  background-color: #019fa0;
+  color: white;
+  border: none;
+  border-radius: 10rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+}
+
+/* KPI列表样式 */
+.kpi-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.kpi-item {
+  background-color: white;
+  border-radius: 10rpx;
+  padding: 30rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.kpi-header {
+  margin-bottom: 20rpx;
+}
+
+.employee-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.employee-name {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.period {
+  font-size: 26rpx;
+  color: #999;
+  background-color: #f5f5f5;
+  padding: 8rpx 16rpx;
+  border-radius: 20rpx;
+}
+
+.kpi-objectives {
+  display: flex;
+  flex-direction: column;
+  gap: 15rpx;
+}
+
+.objective-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+  padding: 15rpx;
+  background-color: #fafafa;
+  border-radius: 8rpx;
+}
+
+.objective-content {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.objective-weight {
+  font-size: 24rpx;
+  color: #666;
+}
+
+/* 绩效考核列表样式 */
+.assessment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.assessment-item {
+  background-color: white;
+  border-radius: 10rpx;
+  padding: 30rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.assessment-header {
+  margin-bottom: 20rpx;
+}
+
+.total-score {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #ff6b35;
+}
+
+.assessment-details {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.score-details {
+  display: flex;
+  flex-direction: column;
+  gap: 15rpx;
+}
+
+.score-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15rpx;
+  background-color: #fafafa;
+  border-radius: 8rpx;
+}
+
+.objective {
+  font-size: 26rpx;
+  color: #333;
+  flex: 1;
+}
+
+.score {
+  font-size: 26rpx;
+  font-weight: bold;
+  color: #019fa0;
+}
+
+.assessment-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+  font-size: 24rpx;
+  color: #666;
+}
+
+.comment {
+  padding: 20rpx;
+  background-color: #e8f5e8;
+  border-radius: 8rpx;
+}
+
+.comment-label {
+  display: block;
+  font-size: 26rpx;
+  font-weight: bold;
+  color: #2e7d32;
+  margin-bottom: 10rpx;
+}
+
+.comment-content {
+  font-size: 24rpx;
+  color: #4caf50;
+  line-height: 1.5;
+}
+
+/* 空状态样式 */
+.empty-state {
+  text-align: center;
+  padding: 100rpx 0;
+  color: #999;
+}
+
+.empty-text {
+  font-size: 32rpx;
+}
