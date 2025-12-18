@@ -1,6 +1,6 @@
 // components/choose-city/choose-city.js
+import mockApi from '../../utils/mockData.js'
 import cityData from '../../utils/cityData'
-import { coordinate2Address } from '../../api/common'
 Component({
   properties: {
 
@@ -12,15 +12,20 @@ Component({
     activeTitle: 'hot',
     toView: 'hot'
   },
-  ready() {
+  async ready() {
     wx.getLocation({
       type: 'gcj02',
-      success: (result) => {
-        coordinate2Address({ location: `${result.latitude},${result.longitude}` }).then(res => {
+      success: async (result) => {
+        // 直接使用mock数据获取地址信息
+        try {
+          const mockResult = await mockApi.coordinate2Address({ location: `${result.latitude},${result.longitude}` });
           this.setData({
-            location: res.data.ad_info.city.split('市')[0]
+            location: mockResult.data.ad_info.city.split('市')[0]
           })
-        })
+        } catch (error) {
+          console.error('获取地址信息失败:', error);
+          wx.showToast({ title: '获取地址信息失败', icon: 'none' });
+        }
       },
       fail: (err) => {
         wx.showToast({ title: '定位失败，请手动选择城市', icon: 'none' });
@@ -37,6 +42,20 @@ Component({
     confirmCity(event) {
       if (!event.currentTarget.dataset.city) return
       this.triggerEvent('confirmCity', event.currentTarget.dataset.city)
-    }
+    },
+    async getAddressByCoordinate() {
+      // 直接使用mock数据获取地址信息
+      try {
+        const mockResult = await mockApi.coordinate2Address({
+          latitude: this.data.latitude,
+          longitude: this.data.longitude
+        });
+        this.setData({
+          address: mockResult.data
+        })
+      } catch (error) {
+        console.error('获取地址信息失败:', error);
+      }
+    },
   }
 })

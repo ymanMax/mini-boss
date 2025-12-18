@@ -1,17 +1,12 @@
-import { config } from './config'
-
+// 模拟WebSocket连接，不再进行实际网络连接
 const ws = {
-  onConnect: wx.connectSocket({
-    url: config.wsUrl,
-    header:{
-      'content-type': 'application/json'
-    },
-    protocols: ['protocol1'],
-    success: () => {
-      wx.onSocketOpen()
+  onConnect: {
+    success: (callback) => {
+      console.log('模拟WebSocket连接成功')
+      if (callback) callback()
     },
     fail: (err) => {
-      console.log('err: ', err)
+      console.log('模拟WebSocket连接失败', err)
     }
-  })
+  }
 }

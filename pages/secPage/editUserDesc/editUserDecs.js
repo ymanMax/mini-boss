@@ -1,5 +1,5 @@
 // pages/secPage/editUserDesc/editUserDecs.js
-import { postUserInfo } from '../../../api/common'
+import mockApi from '../../../utils/mockData.js'
 Page({
   data: {
     lengthNow: 0,
@@ -25,10 +25,24 @@ Page({
       lengthNow: event.detail.value.length
     })
   },
-  commit() {
-    postUserInfo(this.data.userInfo).then(res => {
-      wx.setStorageSync('userInfo', res.data)
-      wx.navigateTo({ url: '/pages/secPage/onlineResume/onlineResume' });
-    })
+  async commit() {
+    // 直接使用mock数据提交用户信息
+    try {
+      const mockResult = await mockApi.postUserInfo(this.data.userInfo);
+      wx.setStorageSync('userInfo', mockResult.data)
+      getApp().globalData.userInfo = mockResult.data
+      wx.showToast({
+        title: '提交成功',
+      })
+      wx.navigateBack({
+        delta: 1
+      })
+    } catch (error) {
+      console.error('提交用户信息失败:', error);
+      wx.showToast({
+        title: '提交失败',
+        icon: 'none'
+      })
+    }
   }
 })

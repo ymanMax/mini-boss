@@ -1,6 +1,5 @@
 // pages/profile/profile.js
-import { postUserInfo } from '../../../api/common.js'
-import {  addCompany, addJob } from '../../../api/formPost.js'
+import mockApi from '../../../utils/mockData.js'
 Page({
   data: {
     sendData: {
@@ -74,12 +73,36 @@ Page({
   onLoad: function (options) {
     
   },
-  _addCompany: function() {
-    addCompany(this.data.sendData).then(res => {
-      console.log(res)
-    })
+  async _addCompany() {
+    // 直接使用mock数据添加公司
+    try {
+      const mockResult = await mockApi.addCompany(this.data.sendData);
+      console.log('添加公司成功:', mockResult)
+      wx.showToast({
+        title: '添加公司成功',
+      })
+    } catch (error) {
+      console.error('添加公司失败:', error);
+      wx.showToast({
+        title: '添加公司失败',
+        icon: 'none'
+      })
+    }
   },
-  _addJob: function() {
-    addJob(this.data.sendData2)
+  async _addJob() {
+    // 直接使用mock数据添加职位
+    try {
+      const mockResult = await mockApi.addJob(this.data.sendData2);
+      console.log('添加职位成功:', mockResult)
+      wx.showToast({
+        title: '添加职位成功',
+      })
+    } catch (error) {
+      console.error('添加职位失败:', error);
+      wx.showToast({
+        title: '添加职位失败',
+        icon: 'none'
+      })
+    }
   }
 })

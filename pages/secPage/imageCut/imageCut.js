@@ -1,5 +1,5 @@
 import { config } from '../../../utils/config'
-import { postUserInfo } from '../../../api/common'
+import mockApi from '../../../utils/mockData.js'
 const app = getApp()
 
 const device = wx.getSystemInfoSync()
@@ -93,16 +93,24 @@ Page({
       delta: 1
     })
   },
-  callBack(data) {
+  async callBack(data) {
     let _user = wx.getStorageSync('userInfo')
     _user.avatarUrl = config.baseUrl + data
-    postUserInfo(_user).then(res => {
-      wx.setStorageSync('userInfo', res.data);
+    // 直接使用mock数据提交用户信息
+    try {
+      const mockResult = await mockApi.postUserInfo(_user);
+      wx.setStorageSync('userInfo', mockResult.data);
       wx.navigateBack({
         delta: 1
       })
-      wx.hideLoading()
-    })
+    } catch (error) {
+      console.error('提交用户信息失败:', error);
+      wx.showToast({
+        title: '提交失败',
+        icon: 'none'
+      })
+    }
+    wx.hideLoading()
   },
   rotate() {
     //在用户旋转的基础上旋转90°

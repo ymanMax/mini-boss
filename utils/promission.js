@@ -1,38 +1,28 @@
-import getUserInfo from './getUserInfo'
-import { authApi } from '../api/common'
-
+import mockApi from './mockData.js'
 
 const authPromission = () => {
   const token = wx.getStorageSync('token')
   const userInfo = wx.getStorageSync('userInfo')
-  if (token && token.length) {
-    if (!userInfo) {
-      wx.navigateTo({ url: `/pages/wxAuth/wxAuth?openid=${token}` })
-      wx.setStorageSync('token', '')
-    }
-  } else {
-    wx.login({
-      success: (res) => {
-        authApi({ code: res.code }).then(res => {
-          if (!res.data || !res.data.userData) {
-            wx.navigateTo({ url: `/pages/wxAuth/wxAuth?openId=${res.data.openId}` })
-          }
-        }).catch(err => {
-          wx.navigateTo({ url: `/pages/404/404` })
-          wx.showToast({
-            title: '登录失败',
-            icon: 'none'
-          })
-        })
-      },
-      fail: (res) => {
-        wx.showToast({
-          title: '登录失败',
-          icon: 'none'
-        })
+  
+  // 直接使用mock用户数据
+  if (!userInfo) {
+    // 模拟用户登录成功，设置mock用户数据
+    const mockUserData = mockApi.getUser({});
+    
+    if (mockUserData && mockUserData.data) {
+      wx.setStorageSync('userInfo', mockUserData.data);
+      wx.setStorageSync('token', 'mock_token_' + Date.now());
+      
+      // 设置全局用户信息
+      const app = getApp();
+      if (app && app.globalData) {
+        app.globalData.userInfo = mockUserData.data;
       }
-    })
+    }
   }
+  
+  // 如果已经有用户信息，直接使用
+  console.log('用户授权完成，使用mock数据');
 }
 
 export default authPromission

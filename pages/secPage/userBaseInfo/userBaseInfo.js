@@ -2,7 +2,7 @@
 import dateFormat from '../../../utils/dateformat'
 import uploadImg from '../../../utils/imageUpload'
 import { config } from '../../../utils/config'
-import { postUserInfo } from '../../../api/common'
+import mockApi from '../../../utils/mockData.js'
 Page({
   data: {
     isIphone: false,
@@ -105,13 +105,18 @@ Page({
       userInfo: this.data.userInfo
     })
   },
-  commit() {
+  async commit() {
     if (!this.data.userInfo.nickName) return wx.showToast({ title: '请输入姓名', icon: 'none', duration: 1500 })
     if (!this.data.userInfo.birthday) return wx.showToast({ title: '请选择出生年月', icon: 'none', duration: 1500 })
     if (!this.data.userInfo.workDate) return wx.showToast({ title: '请选择参加工作时间', icon: 'none', duration: 1500 })
-    postUserInfo(this.data.userInfo).then(res => {
-      wx.setStorageSync('userInfo', res.data);
+    // 直接使用mock数据提交用户信息
+    try {
+      const mockResult = await mockApi.postUserInfo(this.data.userInfo);
+      wx.setStorageSync('userInfo', mockResult.data);
       wx.navigateTo({ url: '/pages/secPage/onlineResume/onlineResume' });
-    })
+    } catch (error) {
+      console.error('提交用户信息失败:', error);
+      wx.showToast({ title: '提交失败，请重试', icon: 'none', duration: 1500 });
+    }
   }
 })

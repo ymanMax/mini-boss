@@ -1,5 +1,5 @@
 // pages/secPage/jobDetail/jobDetail.js
-import { getJobDetail } from '../../../api/queryList'
+import mockApi from '../../../utils/mockData.js'
 Page({
   data: {
     expand: false,
@@ -17,12 +17,16 @@ Page({
       })
     }
   },
-  _getDetail(jobId) {
-    getJobDetail({ jobId: jobId }).then(res => {
+  async _getDetail(jobId) {
+    // 直接使用mock数据获取职位详情
+    try {
+      const mockResult = await mockApi.getJobDetail({ jobId: jobId });
       this.setData({
-        jobDetail: res.data
+        jobDetail: mockResult.data
       })
-    })
+    } catch (error) {
+      console.error('获取职位详情失败:', error);
+    }
   },
   showAllText() {
     this.setData({

@@ -1,6 +1,5 @@
 // pages/search/search.js
-import { getJobList, getSearchHistory } from '../../api/queryList.js'
-import { addSearchHistory } from '../../api/formPost'
+import mockApi from '../../utils/mockData.js'
 Page({
   data: {
     records:[],
@@ -18,13 +17,19 @@ Page({
   onLoad: function (options) {
     this._getSearchHistory()
   },
-  _getSearchHistory() {
-    let _user = wx.getStorageSync('userInfo')
-    getSearchHistory({ openId: _user.openId }).then(res => {
+  async _getSearchHistory() {
+    // 直接使用mock数据获取搜索历史
+    try {
+      const mockResult = await mockApi.getSearchHistory({});
       this.setData({
-        searchHistoryList: res.data
+        searchHistoryList: mockResult.data || []
       })
-    })
+    } catch (error) {
+      console.error('获取搜索历史失败:', error);
+      this.setData({
+        searchHistoryList: []
+      })
+    }
   },
   textInput(event) {
     console.log(event)
@@ -67,15 +72,18 @@ Page({
     })
     this._getJobList()
   },
-  _getJobList(fp = true) {
+  async _getJobList(fp = true) {
     this._freshing = true
     fp && (this.data.sendData.current = 1)
     !fp && (this.data.sendData.current ++)
     this.data.sendData.current < 1 && (this.data.sendData.current = 1)
-    getJobList(this.data.sendData).then(res => {
-      if (res.data.records && res.data.records.length) {
-        !fp && (this.data.records = this.data.records.concat(res.data.records))
-        fp && (this.data.records = res.data.records)
+    
+    // 直接使用mock数据获取职位列表
+    try {
+      const mockResult = await mockApi.getJobList(this.data.sendData);
+      if (mockResult.data.records && mockResult.data.records.length) {
+        !fp && (this.data.records = this.data.records.concat(mockResult.data.records))
+        fp && (this.data.records = mockResult.data.records)
         this.setData({
           records: this.data.records,
           triggered: false
@@ -86,14 +94,17 @@ Page({
           triggered: false
         })
       }
-      this._freshing = false
-    })
+    } catch (error) {
+      console.error('获取职位列表失败:', error);
+      this.setData({
+        triggered: false
+      })
+    }
+    this._freshing = false
   },
   addHistory(jobType) {
-    addSearchHistory({ openId: wx.getStorageSync('token'), jobType: jobType })
-    .then(res => {
-
-    })
+    // 直接使用mock数据添加搜索历史
+    mockApi.addSearchHistory({ jobType: jobType });
   },
   onPulling(e) {
     console.log('onPulling:', e)

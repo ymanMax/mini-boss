@@ -1,7 +1,6 @@
 // pages/secPage/expectPage/expectPage.js
 import tool from '../../../utils/common'
-import { getJobTypes } from '../../../api/queryList'
-import { postUserInfo } from '../../../api/common'
+import mockApi from '../../../utils/mockData.js'
 
 Page({
   data: {
@@ -161,16 +160,20 @@ Page({
       index: options.index
     })
   },
-  toChooseJobTypes() {
-    getJobTypes().then(res => {
+  async toChooseJobTypes() {
+    // 直接使用mock数据获取职位类型
+    try {
+      const mockResult = await mockApi.getJobTypes();
       this.setData({
-        jobTypes: res.data,
-        childTypes: res.data[0].childTypes || [],
-        activeType: res.data[0] || '',
+        jobTypes: mockResult.data,
+        childTypes: mockResult.data[0].childTypes || [],
+        activeType: mockResult.data[0] || '',
         showPop: true,
         showTypes: true
       })
-    })
+    } catch (error) {
+      console.error('获取职位类型失败:', error);
+    }
     // wx.navigateTo({ url: `/pages/secPage/chooseJobTypes/chooseJobTypes?index=${this.data.index}` })
   },
   changeParent(e) {
@@ -236,30 +239,56 @@ Page({
       }
     }
   },
-  commit() {
+  async commit() {
     let _user = getApp().globalData.userInfo
     this.data.index == 3 && _user.jobofLooking.push(this.data.expectItem)
     this.data.index != 3 && (_user.jobofLooking[this.data.index] = this.data.expectItem)
     tool.arrayDeleteEmpty(_user.jobofLooking) 
-    postUserInfo({ openId: wx.getStorageSync('token'), jobofLooking: _user.jobofLooking }).then(res => {
-      wx.setStorageSync('userInfo', res.data)
-      getApp().globalData.userInfo = res.data
-      wx.navigateBack({
-        delta: 1
+    // 直接使用mock数据提交用户信息
+    try {
+      const mockResult = await mockApi.postUserInfo({ openId: wx.getStorageSync('token'), jobofLooking: _user.jobofLooking });
+      if (mockResult.code === 200) {
+        wx.setStorageSync('userInfo', mockResult.data)
+        getApp().globalData.userInfo = mockResult.data
+        wx.showToast({
+          title: '提交成功',
+        })
+        wx.navigateBack({
+          delta: 1
+        })
+      }
+    } catch (error) {
+      console.error('提交用户信息失败:', error);
+      wx.showToast({
+        title: '提交失败',
+        icon: 'none'
       })
-    })
+    }
   },
-  handleDelete() {
+  async handleDelete() {
     let _user = wx.getStorageSync('userInfo')
     console.log(_user)
     _user.jobofLooking.splice(this.data.index, 1)
-    postUserInfo({ openId: wx.getStorageSync('token'), jobofLooking: _user.jobofLooking }).then(res => {
-      wx.setStorageSync('userInfo', res.data)
-      getApp().globalData.userInfo = res.data
-      wx.navigateBack({
-        delta: 1
+    // 直接使用mock数据提交用户信息
+    try {
+      const mockResult = await mockApi.postUserInfo({ openId: wx.getStorageSync('token'), jobofLooking: _user.jobofLooking });
+      if (mockResult.code === 200) {
+        wx.setStorageSync('userInfo', mockResult.data)
+        getApp().globalData.userInfo = mockResult.data
+        wx.showToast({
+          title: '删除成功',
+        })
+        wx.navigateBack({
+          delta: 1
+        })
+      }
+    } catch (error) {
+      console.error('删除用户信息失败:', error);
+      wx.showToast({
+        title: '删除失败',
+        icon: 'none'
       })
-    })
+    }
   },
   closeDialog() {
     this.setData({

@@ -1,5 +1,5 @@
 // pages/home/home.js
-import { getJobList } from '../../api/queryList.js'
+import mockApi from '../../utils/mockData.js'
 Page({
   data: {
     triggered: false,
@@ -24,16 +24,19 @@ Page({
       userInfo: wx.getStorageSync('userInfo')
     })
   },
-  _getJobList(fp = true) {
+  async _getJobList(fp = true) {
     this._freshing = true
     fp && (this.data.sendData.current = 1)
     !fp && (this.data.sendData.current ++)
     this.data.sendData.current < 1 && (this.data.sendData.current = 1)
     wx.getStorageSync('userInfo').jobofLooking && wx.getStorageSync('userInfo').jobofLooking.length && (this.data.sendData.keyWords = wx.getStorageSync('userInfo').jobofLooking[this.data.typeIndex].jobType)
-    getJobList(this.data.sendData).then(res => {
-      if (res.data.records && res.data.records.length) {
-        !fp && (this.data.records = this.data.records.concat(res.data.records))
-        fp && (this.data.records = res.data.records)
+    
+    // 直接使用mock数据获取职位列表
+    try {
+      const mockResult = await mockApi.getJobList(this.data.sendData);
+      if (mockResult.data.records && mockResult.data.records.length) {
+        !fp && (this.data.records = this.data.records.concat(mockResult.data.records))
+        fp && (this.data.records = mockResult.data.records)
         this.setData({
           records: this.data.records,
           triggered: false
@@ -46,8 +49,13 @@ Page({
           records: this.data.records
         })
       }
-      this._freshing = false
-    })
+    } catch (error) {
+      console.error('获取职位列表失败:', error);
+      this.setData({
+        triggered: false
+      })
+    }
+    this._freshing = false
   },
   changeType(event) {
     this.data.typeIndex = event.detail

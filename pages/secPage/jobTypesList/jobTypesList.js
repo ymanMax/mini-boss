@@ -1,5 +1,5 @@
 // pages/secPage/jobTypesList/jobTypesList.js
-import { postUserInfo } from '../../../api/common.js'
+import mockApi from '../../../utils/mockData.js'
 Page({
   data: {
     userInfo: '',
@@ -33,14 +33,18 @@ Page({
     console.log('params: ', params)
     wx.navigateTo({ url: `/pages/secPage/expectPage/expectPage?expectItem=${JSON.stringify(params.expectitem)}&index=${params.index}` })
   },
-  chooseJonStatus(event) {
+  async chooseJonStatus(event) {
     this.data.userInfo.userPostStatus = event.detail.value
-    postUserInfo(this.data.userInfo).then(res => {
-      wx.setStorageSync('userInfo', res.data)
-      getApp().globalData.userInfo = res.data
+    // 直接使用mock数据提交用户信息
+    try {
+      const mockResult = await mockApi.postUserInfo(this.data.userInfo);
+      wx.setStorageSync('userInfo', mockResult.data)
+      getApp().globalData.userInfo = mockResult.data
       this.setData({
         userInfo: this.data.userInfo
       })
-    })
+    } catch (error) {
+      console.error('更新用户状态失败:', error);
+    }
   }
 })

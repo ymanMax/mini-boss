@@ -1,30 +1,35 @@
-import checkStatus from './checkStatus.js'
-import { config } from './config'
+import mockApi from './mockData.js'
 
-const baseUrl = config.baseUrl || "http://192.168.1.19:3000"
+// 将API路径映射到mock函数
+const apiPathToMock = {
+  '/mini-api/user/get-openid': 'authApi',
+  '/mini-api/user/get-info': 'getUser',
+  '/mini-api/user/post-user': 'postUserInfo',
+  '/mini-api/common/file-upload': 'uploadFile',
+  '/mini-api/common/address-by-coordinate': 'coordinate2Address',
+  '/mini-api/job/get-job-list': 'getJobList',
+  '/mini-api/job/get-job-types': 'getJobTypes',
+  '/mini-api/job/get-jobInfo': 'getJobDetail',
+  '/mini-api/user/history-search': 'getSearchHistory',
+  '/mini-api/user/history-search-add': 'addSearchHistory',
+  '/mini-api/company/add-company': 'addCompany',
+  '/mini-api/job/add-job': 'addJob'
+};
+
 const request = (url, data, method) => {
-  return new Promise((resolve, reject) =>{
-    wx.showLoading({
-      // title: '加载中...',
-      mask: true
-    })
-    wx.request({
-      url: baseUrl + url,
-      method: method || 'get',
-      timeout: 20000,
-      data: data || '',
-      complete: (res) => {
-        if (res.errMsg !== "request:ok") reject(res)
-        else {
-          let data = res.data
-          if (data && checkStatus(data.status)) resolve(data)
-          else reject(res)
-          // resolve(res)
-        }
-        wx.hideLoading()
-      }
-    })
-  })
+  // 直接使用mock数据，不再进行网络请求
+  console.log(`直接使用mock数据: ${url}`, data);
+  
+  if (apiPathToMock[url] && mockApi[apiPathToMock[url]]) {
+    return mockApi[apiPathToMock[url]](data);
+  }
+  
+  // 如果没有对应的mock函数，返回默认成功响应
+  return Promise.resolve({
+    status: 200,
+    message: 'success',
+    data: {}
+  });
 }
 
 export default request
