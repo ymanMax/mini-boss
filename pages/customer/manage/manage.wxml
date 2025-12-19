@@ -1,0 +1,189 @@
+<!-- 客户管理页面 -->
+<view class="container">
+  <!-- 顶部操作栏 -->
+  <view class="top-bar">
+    <button class="add-btn" bindtap="openCustomerModal">+ 添加客户</button>
+  </view>
+
+  <!-- 客户列表 -->
+  <view class="customer-section">
+    <view class="section-title">客户列表</view>
+
+    <view class="customer-list">
+      <block wx:for="{{customers}}" wx:key="id">
+        <view class="customer-item">
+          <view class="customer-info">
+            <view class="customer-name">{{item.name}}</view>
+            <view class="customer-company">{{item.company}} - {{item.position}}</view>
+            <view class="customer-contact">
+              <text>{{item.phone}}</text>
+              <text>{{item.email}}</text>
+            </view>
+            <view class="customer-meta">
+              <text class="source">来源: {{item.source}}</text>
+              <text class="level level-{{item.level}}">等级: {{item.level}}</text>
+              <text class="time">最后跟进: {{item.lastFollowTime}}</text>
+            </view>
+          </view>
+
+          <view class="customer-actions">
+            <button class="action-btn follow-btn"
+                    data-customer-id="{{item.id}}"
+                    bindtap="openFollowModal">
+              跟进
+            </button>
+            <button class="action-btn detail-btn"
+                    data-customer-id="{{item.id}}"
+                    bindtap="viewCustomerDetail">
+              详情
+            </button>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 跟进记录 -->
+  <view class="follow-section">
+    <view class="section-title">最新跟进记录</view>
+
+    <view class="follow-list">
+      <block wx:for="{{followRecords}}" wx:key="id">
+        <view class="follow-item">
+          <view class="follow-header">
+            <text class="customer-name">{{item.customerName}}</text>
+            <text class="follow-time">{{item.createTime}}</text>
+          </view>
+          <view class="follow-content">{{item.content}}</view>
+          <view class="follow-meta">
+            <text class="follow-type">{{item.type === 'call' ? '电话' : item.type === 'meeting' ? '会议' : '邮件'}}</text>
+            <text wx:if="{{item.nextDate}}" class="next-follow">下次跟进: {{item.nextDate}}</text>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>
+
+<!-- 添加客户弹窗 -->
+<view class="modal" wx:if="{{showCustomerModal}}">
+  <view class="modal-content">
+    <view class="modal-header">
+      <text>添加客户</text>
+      <text class="close-btn" bindtap="closeCustomerModal">×</text>
+    </view>
+
+    <view class="modal-body">
+      <view class="form-item">
+        <label>客户姓名</label>
+        <input placeholder="请输入客户姓名"
+               value="{{customerForm.name}}"
+               data-field="name"
+               bindinput="onCustomerInput" />
+      </view>
+
+      <view class="form-item">
+        <label>联系电话</label>
+        <input placeholder="请输入联系电话"
+               value="{{customerForm.phone}}"
+               data-field="phone"
+               bindinput="onCustomerInput" />
+      </view>
+
+      <view class="form-item">
+        <label>电子邮箱</label>
+        <input placeholder="请输入电子邮箱"
+               value="{{customerForm.email}}"
+               data-field="email"
+               bindinput="onCustomerInput" />
+      </view>
+
+      <view class="form-item">
+        <label>公司名称</label>
+        <input placeholder="请输入公司名称"
+               value="{{customerForm.company}}"
+               data-field="company"
+               bindinput="onCustomerInput" />
+      </view>
+
+      <view class="form-item">
+        <label>职位</label>
+        <input placeholder="请输入职位"
+               value="{{customerForm.position}}"
+               data-field="position"
+               bindinput="onCustomerInput" />
+      </view>
+
+      <view class="form-item">
+        <label>客户来源</label>
+        <input placeholder="请输入客户来源"
+               value="{{customerForm.source}}"
+               data-field="source"
+               bindinput="onCustomerInput" />
+      </view>
+
+      <view class="form-item">
+        <label>客户等级</label>
+        <picker value="{{customerForm.level}}"
+                range="{{['A', 'B', 'C', 'D']}}"
+                data-field="level"
+                bindchange="onCustomerInput">
+          <view class="picker">{{customerForm.level}}</view>
+        </picker>
+      </view>
+    </view>
+
+    <view class="modal-footer">
+      <button class="cancel-btn" bindtap="closeCustomerModal">取消</button>
+      <button class="confirm-btn" bindtap="addCustomer">确定</button>
+    </view>
+  </view>
+</view>
+
+<!-- 添加跟进记录弹窗 -->
+<view class="modal" wx:if="{{showFollowModal}}">
+  <view class="modal-content">
+    <view class="modal-header">
+      <text>添加跟进记录</text>
+      <text class="close-btn" bindtap="closeFollowModal">×</text>
+    </view>
+
+    <view class="modal-body">
+      <view class="form-item">
+        <label>跟进内容</label>
+        <textarea placeholder="请输入跟进内容"
+                  value="{{followForm.content}}"
+                  data-field="content"
+                  bindinput="onFollowInput" />
+      </view>
+
+      <view class="form-item">
+        <label>跟进方式</label>
+        <picker value="{{followForm.type}}"
+                range="{{['电话', '会议', '邮件', '拜访']}}"
+                range-key="{{index}}"
+                data-field="type"
+                bindchange="onFollowInput">
+          <view class="picker">
+            {{followForm.type === 'call' ? '电话' : followForm.type === 'meeting' ? '会议' : followForm.type === 'email' ? '邮件' : '拜访'}}
+          </view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <label>下次跟进时间</label>
+        <picker mode="date"
+                value="{{followForm.nextDate}}"
+                data-field="nextDate"
+                bindchange="onFollowInput">
+          <view class="picker">{{followForm.nextDate || '请选择下次跟进时间'}}</view>
+        </picker>
+      </view>
+    </view>
+
+    <view class="modal-footer">
+      <button class="cancel-btn" bindtap="closeFollowModal">取消</button>
+      <button class="confirm-btn" bindtap="addFollowRecord">确定</button>
+    </view>
+  </view>
+</view>

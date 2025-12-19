@@ -1,0 +1,351 @@
+/* 合同管理页面样式 */
+.container {
+  padding: 20rpx;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+/* 顶部操作栏 */
+.top-bar {
+  margin-bottom: 30rpx;
+  text-align: right;
+}
+
+.add-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 50rpx;
+  padding: 20rpx 40rpx;
+  font-size: 28rpx;
+  box-shadow: 0 8rpx 16rpx rgba(102, 126, 234, 0.3);
+}
+
+.add-btn:active {
+  transform: translateY(2rpx);
+  box-shadow: 0 4rpx 8rpx rgba(102, 126, 234, 0.3);
+}
+
+/* 区域标题 */
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+  padding-bottom: 15rpx;
+  border-bottom: 2rpx solid #e0e0e0;
+}
+
+/* 合同统计 */
+.stats-section {
+  margin-bottom: 40rpx;
+}
+
+.stats-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20rpx;
+}
+
+.stats-card {
+  background: white;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+  text-align: center;
+  flex: 1;
+  min-width: 200rpx;
+}
+
+.card-value {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+
+.card-label {
+  font-size: 24rpx;
+  color: #666;
+}
+
+/* 合同列表 */
+.contract-section {
+  margin-bottom: 40rpx;
+}
+
+.contract-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.contract-item {
+  background: white;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.contract-info {
+  flex: 1;
+  margin-right: 20rpx;
+}
+
+.contract-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10rpx;
+}
+
+.contract-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  flex: 1;
+  margin-right: 20rpx;
+}
+
+.contract-number {
+  font-size: 24rpx;
+  color: #667eea;
+  background: rgba(102, 126, 234, 0.1);
+  padding: 6rpx 12rpx;
+  border-radius: 20rpx;
+  white-space: nowrap;
+}
+
+.contract-customer {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 8rpx;
+}
+
+.contract-amount {
+  font-size: 28rpx;
+  color: #667eea;
+  font-weight: bold;
+  margin-bottom: 15rpx;
+}
+
+.contract-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15rpx;
+  margin-bottom: 15rpx;
+  font-size: 24rpx;
+}
+
+.contract-meta .status {
+  padding: 6rpx 12rpx;
+  border-radius: 20rpx;
+  font-weight: bold;
+  color: white;
+}
+
+.status-draft {
+  background: #9E9E9E;
+}
+
+.status-pending {
+  background: #FF9800;
+}
+
+.status-active {
+  background: #4CAF50;
+}
+
+.status-expired {
+  background: #F44336;
+}
+
+.status-terminated {
+  background: #607D8B;
+}
+
+.contract-meta .start-date {
+  color: #4CAF50;
+  background: rgba(76, 175, 80, 0.1);
+  padding: 6rpx 12rpx;
+  border-radius: 20rpx;
+}
+
+.contract-meta .end-date {
+  color: #F44336;
+  background: rgba(244, 67, 54, 0.1);
+  padding: 6rpx 12rpx;
+  border-radius: 20rpx;
+}
+
+.contract-meta .sign-date {
+  color: #2196F3;
+  background: rgba(33, 150, 243, 0.1);
+  padding: 6rpx 12rpx;
+  border-radius: 20rpx;
+}
+
+.contract-description {
+  font-size: 26rpx;
+  color: #888;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.contract-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 15rpx;
+}
+
+.detail-btn, .download-btn {
+  border: none;
+  border-radius: 8rpx;
+  padding: 15rpx 20rpx;
+  font-size: 26rpx;
+  min-width: 100rpx;
+}
+
+.detail-btn {
+  background: #f0f0f0;
+  color: #333;
+}
+
+.download-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+/* 弹窗样式 */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 20rpx;
+  width: 90%;
+  max-width: 600rpx;
+  max-height: 80vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx;
+  border-bottom: 2rpx solid #e0e0e0;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.close-btn {
+  font-size: 48rpx;
+  color: #999;
+  line-height: 1;
+}
+
+.modal-body {
+  padding: 30rpx;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.form-item {
+  margin-bottom: 30rpx;
+}
+
+.form-item label {
+  display: block;
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15rpx;
+}
+
+.input-group {
+  display: flex;
+  gap: 15rpx;
+}
+
+.input-group input {
+  flex: 1;
+  padding: 20rpx;
+  border: 2rpx solid #e0e0e0;
+  border-radius: 10rpx;
+  font-size: 28rpx;
+  color: #333;
+  background: white;
+}
+
+.generate-btn {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  border: none;
+  border-radius: 10rpx;
+  padding: 20rpx 30rpx;
+  font-size: 26rpx;
+  white-space: nowrap;
+}
+
+.form-item input,
+.form-item textarea,
+.form-item .picker {
+  width: 100%;
+  padding: 20rpx;
+  border: 2rpx solid #e0e0e0;
+  border-radius: 10rpx;
+  font-size: 28rpx;
+  color: #333;
+  background: white;
+}
+
+.form-item textarea {
+  min-height: 120rpx;
+  resize: none;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20rpx;
+  padding: 30rpx;
+  border-top: 2rpx solid #e0e0e0;
+}
+
+.modal-footer button {
+  border: none;
+  border-radius: 10rpx;
+  padding: 20rpx 40rpx;
+  font-size: 28rpx;
+  min-width: 120rpx;
+}
+
+.cancel-btn {
+  background: #f0f0f0;
+  color: #333;
+}
+
+.confirm-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}

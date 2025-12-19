@@ -1,0 +1,226 @@
+<!-- 客户满意度调查页面 -->
+<view class="container">
+  <!-- 顶部操作栏 -->
+  <view class="top-bar">
+    <button class="add-btn" bindtap="openSurveyModal">+ 添加调查</button>
+  </view>
+
+  <!-- 调查统计 -->
+  <view class="stats-section">
+    <view class="section-title">调查统计</view>
+    <view class="stats-cards">
+      <view class="stats-card">
+        <view class="card-value">3</view>
+        <view class="card-label">总调查数</view>
+      </view>
+      <view class="stats-card">
+        <view class="card-value">2</view>
+        <view class="card-label">进行中调查</view>
+      </view>
+      <view class="stats-card">
+        <view class="card-value">479</view>
+        <view class="card-label">总反馈数</view>
+      </view>
+      <view class="stats-card">
+        <view class="card-value">4.3</view>
+        <view class="card-label">平均满意度</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 调查问卷列表 -->
+  <view class="survey-section">
+    <view class="section-title">调查问卷</view>
+
+    <view class="survey-list">
+      <block wx:for="{{surveys}}" wx:key="id">
+        <view class="survey-item">
+          <view class="survey-info">
+            <view class="survey-header">
+              <view class="survey-title">{{item.title}}</view>
+              <text class="survey-type type-{{item.type}}">
+                {{item.type === 'satisfaction' ? '满意度调查' : '反馈调查'}}
+              </text>
+            </view>
+            <view class="survey-description">{{item.description}}</view>
+            <view class="survey-meta">
+              <text class="status status-{{item.status}}">
+                {{item.status === 'draft' ? '草稿' : item.status === 'active' ? '进行中' : '已结束'}}
+              </text>
+              <text class="period">
+                {{item.startDate}} 至 {{item.endDate}}
+              </text>
+              <text class="responses">{{item.totalResponses}} 份反馈</text>
+              <text class="avg-score">平均分: {{item.avgScore}}</text>
+            </view>
+            <view class="survey-time">
+              <text>创建: {{item.createTime}}</text>
+              <text wx:if="{{item.updateTime !== item.createTime}}">更新: {{item.updateTime}}</text>
+            </view>
+          </view>
+
+          <view class="survey-actions">
+            <view class="status-buttons" wx:if="{{item.status === 'draft'}}">
+              <button class="status-btn activate-btn"
+                      data-survey-id="{{item.id}}"
+                      data-status="active"
+                      bindtap="updateSurveyStatus">
+                启动调查
+              </button>
+            </view>
+            <view class="status-buttons" wx:if="{{item.status === 'active'}}">
+              <button class="status-btn close-btn"
+                      data-survey-id="{{item.id}}"
+                      data-status="closed"
+                      bindtap="updateSurveyStatus">
+                结束调查
+              </button>
+            </view>
+            <button class="detail-btn"
+                    data-survey-id="{{item.id}}"
+                    bindtap="viewSurveyDetail">
+              详情
+            </button>
+            <button class="results-btn"
+                    data-survey-id="{{item.id}}"
+                    bindtap="viewSurveyResults">
+              查看结果
+            </button>
+            <button class="send-btn"
+                    data-survey-id="{{item.id}}"
+                    bindtap="sendSurvey">
+              发送
+            </button>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>
+
+<!-- 添加调查弹窗 -->
+<view class="modal" wx:if="{{showSurveyModal}}">
+  <view class="modal-content">
+    <view class="modal-header">
+      <text>添加调查问卷</text>
+      <text class="close-btn" bindtap="closeSurveyModal">×</text>
+    </view>
+
+    <view class="modal-body">
+      <view class="form-item">
+        <label>调查标题</label>
+        <input placeholder="请输入调查标题"
+               value="{{surveyForm.title}}"
+               data-field="title"
+               bindinput="onSurveyInput" />
+      </view>
+
+      <view class="form-item">
+        <label>调查描述</label>
+        <textarea placeholder="请输入调查描述"
+                  value="{{surveyForm.description}}"
+                  data-field="description"
+                  bindinput="onSurveyInput" />
+      </view>
+
+      <view class="form-item">
+        <label>调查类型</label>
+        <picker value="{{surveyForm.type}}"
+                range="{{['满意度调查', '反馈调查']}}"
+                data-field="type"
+                bindchange="onSurveyInput">
+          <view class="picker">
+            {{surveyForm.type === 'satisfaction' ? '满意度调查' : '反馈调查'}}
+          </view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <label>调查状态</label>
+        <picker value="{{surveyForm.status}}"
+                range="{{['草稿', '进行中', '已结束']}}"
+                data-field="status"
+                bindchange="onSurveyInput">
+          <view class="picker">
+            {{surveyForm.status === 'draft' ? '草稿' : surveyForm.status === 'active' ? '进行中' : '已结束'}}
+          </view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <label>开始日期</label>
+        <picker mode="date"
+                value="{{surveyForm.startDate}}"
+                data-field="startDate"
+                bindchange="onSurveyInput">
+          <view class="picker">{{surveyForm.startDate || '请选择开始日期'}}</view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <label>结束日期</label>
+        <picker mode="date"
+                value="{{surveyForm.endDate}}"
+                data-field="endDate"
+                bindchange="onSurveyInput">
+          <view class="picker">{{surveyForm.endDate || '请选择结束日期'}}</view>
+        </picker>
+      </view>
+    </view>
+
+    <view class="modal-footer">
+      <button class="cancel-btn" bindtap="closeSurveyModal">取消</button>
+      <button class="confirm-btn" bindtap="addSurvey">确定</button>
+    </view>
+  </view>
+</view>
+
+<!-- 调查结果弹窗 -->
+<view class="modal" wx:if="{{showResultsModal}}">
+  <view class="modal-content">
+    <view class="modal-header">
+      <text>{{selectedSurvey ? selectedSurvey.title : ''}} - 调查结果</text>
+      <text class="close-btn" bindtap="closeResultsModal">×</text>
+    </view>
+
+    <view class="modal-body">
+      <view class="survey-summary">
+        <view class="summary-item">
+          <text>总反馈数:</text>
+          <text class="value">{{selectedSurvey ? selectedSurvey.totalResponses : 0}}</text>
+        </view>
+        <view class="summary-item">
+          <text>平均满意度:</text>
+          <text class="value">{{selectedSurvey ? selectedSurvey.avgScore : 0}}/5</text>
+        </view>
+        <view class="summary-item">
+          <text>调查周期:</text>
+          <text class="value">{{selectedSurvey ? selectedSurvey.startDate + ' 至 ' + selectedSurvey.endDate : ''}}</text>
+        </view>
+      </view>
+
+      <view class="results-section">
+        <view class="section-title">详细结果</view>
+        <block wx:for="{{surveyResults}}" wx:key="questionId">
+          <view class="result-item">
+            <view class="question">{{item.question}}</view>
+            <view wx:if="{{item.avgScore}}" class="avg-score">
+              平均得分: {{item.avgScore}}/5 ({{item.responses}} 人参与)
+            </view>
+            <view wx:if="{{item.comments}}" class="comments">
+              <text class="comment-title">典型反馈:</text>
+              <block wx:for="{{item.comments}}" wx:key="index">
+                <text class="comment-item">• {{item}}</text>
+              </block>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+
+    <view class="modal-footer">
+      <button class="export-btn" bindtap="closeResultsModal">导出结果</button>
+      <button class="close-btn" bindtap="closeResultsModal">关闭</button>
+    </view>
+  </view>
+</view>

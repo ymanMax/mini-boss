@@ -267,4 +267,276 @@ const mockApi = {
   addJob: (data) => mockApiResponse({ success: true, jobId: mockJobs.length + 1 })
 };
 
+// CRM系统相关Mock数据
+
+// 客户相关Mock数据
+const customerMockData = {
+  // 客户列表
+  list: [
+    {
+      id: '1',
+      name: '张三',
+      phone: '13800138001',
+      email: 'zhangsan@example.com',
+      company: 'ABC科技有限公司',
+      position: 'CEO',
+      source: '展会',
+      level: 'A',
+      createTime: '2025-01-15',
+      lastFollowTime: '2025-01-20'
+    },
+    {
+      id: '2',
+      name: '李四',
+      phone: '13800138002',
+      email: 'lisi@example.com',
+      company: 'XYZ贸易公司',
+      position: '采购经理',
+      source: '推荐',
+      level: 'B',
+      createTime: '2025-01-10',
+      lastFollowTime: '2025-01-18'
+    }
+  ],
+
+  // 跟进记录
+  followRecords: [
+    {
+      id: '1',
+      customerId: '1',
+      customerName: '张三',
+      content: '初次沟通，了解客户需求',
+      type: 'call',
+      createTime: '2025-01-16',
+      nextDate: '2025-01-23'
+    },
+    {
+      id: '2',
+      customerId: '1',
+      customerName: '张三',
+      content: '发送产品资料，约定演示时间',
+      type: 'meeting',
+      createTime: '2025-01-20',
+      nextDate: '2025-01-25'
+    }
+  ]
+};
+
+// 销售相关Mock数据
+const salesMockData = {
+  // 销售机会
+  opportunities: [
+    {
+      id: '1',
+      customerId: '1',
+      customerName: '张三',
+      title: '企业级CRM系统采购',
+      amount: '500000',
+      stage: 'negotiation',
+      probability: '70%',
+      expectedCloseDate: '2025-02-15',
+      assignedTo: '李四',
+      description: '客户需要一套完整的CRM系统，包含客户管理、销售跟踪、数据分析等功能',
+      createTime: '2025-01-05',
+      updateTime: '2025-01-20'
+    },
+    {
+      id: '2',
+      customerId: '2',
+      customerName: '李四',
+      title: '办公软件升级',
+      amount: '150000',
+      stage: 'proposal',
+      probability: '50%',
+      expectedCloseDate: '2025-02-28',
+      assignedTo: '王五',
+      description: '客户现有办公软件需要升级，主要涉及协同办公和文档管理功能',
+      createTime: '2025-01-10',
+      updateTime: '2025-01-18'
+    }
+  ],
+
+  // 销售预测数据
+  forecast: {
+    monthly: [
+      { month: '1月', actual: 120000, forecast: 150000, probability: 85 },
+      { month: '2月', actual: 145000, forecast: 180000, probability: 78 },
+      { month: '3月', actual: 0, forecast: 220000, probability: 65 },
+      { month: '4月', actual: 0, forecast: 200000, probability: 55 },
+      { month: '5月', actual: 0, forecast: 190000, probability: 45 },
+      { month: '6月', actual: 0, forecast: 210000, probability: 35 }
+    ]
+  }
+};
+
+// 合同相关Mock数据
+const contractMockData = {
+  // 合同列表
+  list: [
+    {
+      id: '1',
+      customerId: '1',
+      customerName: '张三',
+      contractNumber: 'HT2025001',
+      title: '企业级CRM系统采购合同',
+      amount: '500000',
+      status: 'active',
+      startDate: '2025-01-01',
+      endDate: '2026-12-31',
+      signDate: '2025-01-15',
+      description: '客户采购企业级CRM系统，包含客户管理、销售跟踪、数据分析等功能，服务期2年',
+      createTime: '2025-01-05',
+      updateTime: '2025-01-20'
+    },
+    {
+      id: '2',
+      customerId: '2',
+      customerName: '李四',
+      contractNumber: 'HT2025002',
+      title: '办公软件升级服务合同',
+      amount: '150000',
+      status: 'pending',
+      startDate: '2025-02-01',
+      endDate: '2025-12-31',
+      signDate: '',
+      description: '客户现有办公软件升级服务，主要涉及协同办公和文档管理功能，服务期1年',
+      createTime: '2025-01-10',
+      updateTime: '2025-01-18'
+    }
+  ]
+};
+
+// 订单相关Mock数据
+const orderMockData = {
+  // 订单列表
+  list: [
+    {
+      id: '1',
+      customerId: '1',
+      customerName: '张三',
+      orderNumber: 'SO2025001',
+      contractId: '1',
+      contractNumber: 'HT2025001',
+      title: '企业级CRM系统采购订单',
+      amount: '500000',
+      status: 'paid',
+      orderDate: '2025-01-15',
+      deliveryDate: '2025-02-01',
+      description: '客户采购企业级CRM系统，包含客户管理、销售跟踪、数据分析等功能',
+      createTime: '2025-01-15',
+      updateTime: '2025-01-20'
+    },
+    {
+      id: '2',
+      customerId: '2',
+      customerName: '李四',
+      orderNumber: 'SO2025002',
+      contractId: '2',
+      contractNumber: 'HT2025002',
+      title: '办公软件升级服务订单',
+      amount: '150000',
+      status: 'pending',
+      orderDate: '2025-01-18',
+      deliveryDate: '2025-02-15',
+      description: '客户现有办公软件升级服务，主要涉及协同办公和文档管理功能',
+      createTime: '2025-01-18',
+      updateTime: '2025-01-18'
+    }
+  ]
+};
+
+// 客户服务相关Mock数据
+const serviceMockData = {
+  // 服务工单
+  tickets: [
+    {
+      id: '1',
+      customerId: '1',
+      customerName: '张三',
+      ticketNumber: 'SR2025001',
+      title: 'CRM系统登录问题',
+      priority: 'high',
+      status: 'open',
+      type: 'technical',
+      description: '客户反映无法登录CRM系统，提示用户名或密码错误，但客户确认用户名密码正确',
+      assignedTo: '李四',
+      createTime: '2025-01-20',
+      updateTime: '2025-01-20'
+    },
+    {
+      id: '2',
+      customerId: '2',
+      customerName: '李四',
+      ticketNumber: 'SR2025002',
+      title: '办公软件使用培训',
+      priority: 'medium',
+      status: 'in_progress',
+      type: 'training',
+      description: '客户需要对新升级的办公软件进行使用培训，主要涉及协同办公和文档管理功能',
+      assignedTo: '王五',
+      createTime: '2025-01-19',
+      updateTime: '2025-01-20'
+    }
+  ],
+
+  // 客服人员
+  agents: [
+    { id: '1', name: '李四' },
+    { id: '2', name: '王五' },
+    { id: '3', name: '赵六' }
+  ]
+};
+
+// 满意度调查相关Mock数据
+const surveyMockData = {
+  // 调查列表
+  list: [
+    {
+      id: '1',
+      title: '2025年第一季度客户满意度调查',
+      description: '了解客户对我们产品和服务的满意度，收集改进建议',
+      type: 'satisfaction',
+      status: 'active',
+      startDate: '2025-01-01',
+      endDate: '2025-03-31',
+      totalResponses: 156,
+      avgScore: 4.2,
+      createTime: '2024-12-20',
+      updateTime: '2025-01-15'
+    },
+    {
+      id: '2',
+      title: '新功能使用反馈调查',
+      description: '针对最新推出的CRM数据分析功能收集客户使用反馈',
+      type: 'feedback',
+      status: 'active',
+      startDate: '2025-01-10',
+      endDate: '2025-02-28',
+      totalResponses: 89,
+      avgScore: 4.5,
+      createTime: '2025-01-05',
+      updateTime: '2025-01-20'
+    }
+  ]
+};
+
+// 为现有的mockApi添加CRM相关接口
+mockApi.getCustomerList = () => mockApiResponse(customerMockData.list);
+mockApi.getCustomerFollowRecords = (data) => {
+  const { customerId } = data || {};
+  const records = customerMockData.followRecords.filter(record => record.customerId === customerId);
+  return mockApiResponse(records);
+};
+
+mockApi.getSalesOpportunities = () => mockApiResponse(salesMockData.opportunities);
+mockApi.getSalesForecast = (data) => {
+  const { period = 'monthly' } = data || {};
+  return mockApiResponse(salesMockData.forecast[period]);
+};
+
+mockApi.getContractList = () => mockApiResponse(contractMockData.list);
+mockApi.getOrderList = () => mockApiResponse(orderMockData.list);
+mockApi.getServiceTickets = () => mockApiResponse(serviceMockData.tickets);
+mockApi.getSurveyList = () => mockApiResponse(surveyMockData.list);
+
 export default mockApi;
