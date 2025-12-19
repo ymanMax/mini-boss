@@ -6,6 +6,7 @@
     "pages/404/404",
     "pages/message/message",
     "pages/search/search",
+    "pages/project/manage/manage",
     "pages/secPage/jobDetail/jobDetail",
     "pages/secPage/map/map",
     "pages/secPage/jobTypesList/jobTypesList",

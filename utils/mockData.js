@@ -539,4 +539,392 @@ mockApi.getOrderList = () => mockApiResponse(orderMockData.list);
 mockApi.getServiceTickets = () => mockApiResponse(serviceMockData.tickets);
 mockApi.getSurveyList = () => mockApiResponse(surveyMockData.list);
 
+// 项目管理与任务协作系统 - Mock数据
+
+// 模拟项目数据
+const mockProjects = [
+  {
+    id: 1,
+    name: '电商平台重构',
+    description: '对现有电商平台进行全面重构，提升用户体验和系统性能',
+    startDate: '2024-01-15',
+    endDate: '2024-06-30',
+    budget: 500000,
+    actualCost: 320000,
+    manager: '张三',
+    status: 'in_progress',
+    progress: 65,
+    createdAt: '2024-01-10T10:00:00Z'
+  },
+  {
+    id: 2,
+    name: '移动APP开发',
+    description: '开发一款新的移动应用，支持iOS和Android平台',
+    startDate: '2024-03-01',
+    endDate: '2024-09-30',
+    budget: 800000,
+    actualCost: 150000,
+    manager: '李四',
+    status: 'in_progress',
+    progress: 20,
+    createdAt: '2024-02-20T14:30:00Z'
+  },
+  {
+    id: 3,
+    name: '数据分析系统建设',
+    description: '建立企业级数据分析系统，实现数据可视化和业务智能',
+    startDate: '2024-02-01',
+    endDate: '2024-05-31',
+    budget: 300000,
+    actualCost: 300000,
+    manager: '王五',
+    status: 'completed',
+    progress: 100,
+    createdAt: '2024-01-25T09:15:00Z'
+  },
+  {
+    id: 4,
+    name: 'CRM系统升级',
+    description: '升级客户关系管理系统，增加新功能模块',
+    startDate: '2024-04-01',
+    endDate: '2024-08-31',
+    budget: 400000,
+    actualCost: 0,
+    manager: '赵六',
+    status: 'planning',
+    progress: 0,
+    createdAt: '2024-03-15T16:45:00Z'
+  }
+]
+
+// 模拟任务数据
+const mockTasks = [
+  {
+    id: 1,
+    name: '需求分析与设计',
+    description: '完成项目的需求分析和系统设计文档',
+    projectId: 1,
+    projectName: '电商平台重构',
+    assignee: '张三',
+    status: 'completed',
+    progress: 100,
+    deadline: '2024-02-15',
+    createdAt: '2024-01-10T11:00:00Z'
+  },
+  {
+    id: 2,
+    name: '前端页面开发',
+    description: '开发电商平台的前端页面，包括首页、商品详情页、购物车等',
+    projectId: 1,
+    projectName: '电商平台重构',
+    assignee: '李四',
+    status: 'in_progress',
+    progress: 75,
+    deadline: '2024-04-30',
+    createdAt: '2024-02-16T09:30:00Z'
+  },
+  {
+    id: 3,
+    name: '后端接口开发',
+    description: '开发电商平台的后端API接口，支持前端功能',
+    projectId: 1,
+    projectName: '电商平台重构',
+    assignee: '王五',
+    status: 'in_progress',
+    progress: 60,
+    deadline: '2024-04-15',
+    createdAt: '2024-02-16T10:00:00Z'
+  },
+  {
+    id: 4,
+    name: '数据库设计与优化',
+    description: '设计电商平台的数据库结构，并进行性能优化',
+    projectId: 1,
+    projectName: '电商平台重构',
+    assignee: '赵六',
+    status: 'completed',
+    progress: 100,
+    deadline: '2024-02-28',
+    createdAt: '2024-01-10T11:30:00Z'
+  },
+  {
+    id: 5,
+    name: '移动APP界面设计',
+    description: '设计移动APP的用户界面和交互原型',
+    projectId: 2,
+    projectName: '移动APP开发',
+    assignee: '孙七',
+    status: 'completed',
+    progress: 100,
+    deadline: '2024-03-31',
+    createdAt: '2024-03-01T10:00:00Z'
+  },
+  {
+    id: 6,
+    name: 'iOS应用开发',
+    description: '开发移动APP的iOS版本',
+    projectId: 2,
+    projectName: '移动APP开发',
+    assignee: '周八',
+    status: 'in_progress',
+    progress: 30,
+    deadline: '2024-07-31',
+    createdAt: '2024-04-01T09:00:00Z'
+  }
+]
+
+// 模拟团队成员数据
+const mockTeamMembers = [
+  {
+    id: 1,
+    name: '张三',
+    role: '项目经理',
+    email: 'zhangsan@company.com',
+    phone: '13800138001',
+    avatar: '/images/avatar1.png',
+    completedTasks: 25,
+    projects: 4,
+    joinDate: '2022-03-15'
+  },
+  {
+    id: 2,
+    name: '李四',
+    role: '前端开发工程师',
+    email: 'lisi@company.com',
+    phone: '13800138002',
+    avatar: '/images/avatar2.png',
+    completedTasks: 42,
+    projects: 6,
+    joinDate: '2021-11-05'
+  },
+  {
+    id: 3,
+    name: '王五',
+    role: '后端开发工程师',
+    email: 'wangwu@company.com',
+    phone: '13800138003',
+    avatar: '/images/avatar3.png',
+    completedTasks: 38,
+    projects: 5,
+    joinDate: '2022-05-20'
+  },
+  {
+    id: 4,
+    name: '赵六',
+    role: '数据库工程师',
+    email: 'zhaoliu@company.com',
+    phone: '13800138004',
+    avatar: '/images/avatar4.png',
+    completedTasks: 22,
+    projects: 3,
+    joinDate: '2023-01-10'
+  },
+  {
+    id: 5,
+    name: '孙七',
+    role: 'UI/UX设计师',
+    email: 'sunqi@company.com',
+    phone: '13800138005',
+    avatar: '/images/avatar5.png',
+    completedTasks: 35,
+    projects: 4,
+    joinDate: '2022-08-15'
+  },
+  {
+    id: 6,
+    name: '周八',
+    role: '移动开发工程师',
+    email: 'zhouba@company.com',
+    phone: '13800138006',
+    avatar: '/images/avatar6.png',
+    completedTasks: 18,
+    projects: 2,
+    joinDate: '2023-03-01'
+  }
+]
+
+// 模拟文件数据
+const mockFiles = [
+  {
+    id: 1,
+    name: '电商平台需求规格说明书.docx',
+    size: 2560,
+    type: 'document',
+    projectId: 1,
+    projectName: '电商平台重构',
+    uploader: '张三',
+    uploadTime: '2024-01-15T14:30:00Z',
+    url: '/files/requirement_spec.docx'
+  },
+  {
+    id: 2,
+    name: '系统架构设计图.pdf',
+    size: 1536,
+    type: 'document',
+    projectId: 1,
+    projectName: '电商平台重构',
+    uploader: '张三',
+    uploadTime: '2024-01-20T10:15:00Z',
+    url: '/files/architecture_design.pdf'
+  },
+  {
+    id: 3,
+    name: '前端页面原型.sketch',
+    size: 8192,
+    type: 'design',
+    projectId: 1,
+    projectName: '电商平台重构',
+    uploader: '李四',
+    uploadTime: '2024-02-05T16:45:00Z',
+    url: '/files/frontend_prototype.sketch'
+  },
+  {
+    id: 4,
+    name: '数据库设计方案.xlsx',
+    size: 1024,
+    type: 'document',
+    projectId: 1,
+    projectName: '电商平台重构',
+    uploader: '赵六',
+    uploadTime: '2024-02-10T09:30:00Z',
+    url: '/files/database_design.xlsx'
+  },
+  {
+    id: 5,
+    name: '移动APP界面设计稿.zip',
+    size: 12288,
+    type: 'archive',
+    projectId: 2,
+    projectName: '移动APP开发',
+    uploader: '孙七',
+    uploadTime: '2024-03-20T15:20:00Z',
+    url: '/files/app_design.zip'
+  }
+]
+
+// 模拟风险数据
+const mockRisks = [
+  {
+    id: 1,
+    projectId: 1,
+    projectName: '电商平台重构',
+    description: '前端开发进度滞后，可能影响整体项目交付时间',
+    level: 'high',
+    status: 'identified',
+    impact: '项目可能延期2周',
+    probability: '70%',
+    mitigationPlan: '增加前端开发资源，调整任务优先级',
+    identifiedBy: '张三',
+    identifiedTime: '2024-03-15T14:30:00Z'
+  },
+  {
+    id: 2,
+    projectId: 1,
+    projectName: '电商平台重构',
+    description: '第三方支付接口稳定性存在风险，可能影响支付功能',
+    level: 'medium',
+    status: 'mitigated',
+    impact: '支付功能可能出现间歇性故障',
+    probability: '40%',
+    mitigationPlan: '与第三方支付提供商沟通，建立备用支付方案',
+    identifiedBy: '王五',
+    identifiedTime: '2024-03-20T10:15:00Z'
+  },
+  {
+    id: 3,
+    projectId: 2,
+    projectName: '移动APP开发',
+    description: 'iOS平台审核政策变更，可能影响APP上线时间',
+    level: 'medium',
+    status: 'identified',
+    impact: 'APP可能延期上线1-2周',
+    probability: '50%',
+    mitigationPlan: '密切关注苹果审核政策，提前准备备用方案',
+    identifiedBy: '周八',
+    identifiedTime: '2024-04-05T16:45:00Z'
+  },
+  {
+    id: 4,
+    projectId: 3,
+    projectName: '数据分析系统建设',
+    description: '数据来源接口不规范，可能影响数据分析结果的准确性',
+    level: 'low',
+    status: 'resolved',
+    impact: '部分数据分析结果可能存在偏差',
+    probability: '20%',
+    mitigationPlan: '与数据提供方协作，规范数据接口格式',
+    identifiedBy: '王五',
+    identifiedTime: '2024-02-10T09:30:00Z'
+  }
+]
+
+// 为现有的mockApi添加项目管理相关接口
+mockApi.getProjects = () => mockApiResponse(mockProjects);
+mockApi.getTasks = () => mockApiResponse(mockTasks);
+mockApi.getTeamMembers = () => mockApiResponse(mockTeamMembers);
+mockApi.getFiles = () => mockApiResponse(mockFiles);
+mockApi.getRisks = () => mockApiResponse(mockRisks);
+
+mockApi.createProject = (project) => {
+  const newProject = {
+    id: Date.now(),
+    ...project,
+    status: 'planning',
+    progress: 0,
+    actualCost: 0,
+    createdAt: new Date().toISOString()
+  };
+  mockProjects.push(newProject);
+  return mockApiResponse(newProject);
+};
+
+mockApi.updateProject = (id, project) => {
+  const index = mockProjects.findIndex(p => p.id === id);
+  if (index !== -1) {
+    mockProjects[index] = { ...mockProjects[index], ...project };
+  }
+  return mockApiResponse(mockProjects[index]);
+};
+
+mockApi.assignTask = (taskId, userId) => {
+  const task = mockTasks.find(t => t.id === taskId);
+  if (task) {
+    task.assignee = userId;
+    task.status = 'assigned';
+  }
+  return mockApiResponse(task);
+};
+
+mockApi.updateTaskProgress = (taskId, progress) => {
+  const task = mockTasks.find(t => t.id === taskId);
+  if (task) {
+    task.progress = progress;
+    task.status = progress === 100 ? 'completed' : 'in_progress';
+  }
+  return mockApiResponse(task);
+};
+
+mockApi.uploadFile = (file) => {
+  const newFile = {
+    id: Date.now(),
+    ...file,
+    uploadTime: new Date().toISOString()
+  };
+  mockFiles.push(newFile);
+  return mockApiResponse(newFile);
+};
+
+mockApi.addRisk = (risk) => {
+  const newRisk = {
+    id: Date.now(),
+    ...risk,
+    identifiedTime: new Date().toISOString()
+  };
+  mockRisks.push(newRisk);
+  return mockApiResponse(newRisk);
+};
+
+// 导出项目管理相关的mock数据
+export { mockProjects, mockTasks, mockTeamMembers, mockFiles, mockRisks };
+
 export default mockApi;
