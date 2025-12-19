@@ -1,0 +1,272 @@
+.container {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+/* 标签切换样式 */
+.tab-container {
+  display: flex;
+  background-color: white;
+  border-bottom: 2rpx solid #e0e0e0;
+}
+
+.tab {
+  flex: 1;
+  padding: 30rpx;
+  text-align: center;
+  font-size: 32rpx;
+  color: #666;
+  position: relative;
+}
+
+.tab.active {
+  color: #019fa0;
+  font-weight: bold;
+}
+
+.tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60rpx;
+  height: 4rpx;
+  background-color: #019fa0;
+}
+
+/* 内容区域样式 */
+.content {
+  padding: 20rpx;
+}
+
+/* 操作按钮样式 */
+.action-buttons {
+  display: flex;
+  gap: 20rpx;
+  margin-bottom: 30rpx;
+  flex-wrap: wrap;
+}
+
+.add-btn, .generate-btn {
+  padding: 20rpx 30rpx;
+  border: none;
+  border-radius: 10rpx;
+  font-size: 28rpx;
+  font-weight: bold;
+  color: white;
+}
+
+.add-btn {
+  background-color: #019fa0;
+}
+
+.generate-btn {
+  background-color: #ff6b35;
+}
+
+/* 薪资记录列表样式 */
+.salary-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.salary-item {
+  background-color: white;
+  border-radius: 10rpx;
+  padding: 30rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.salary-header {
+  margin-bottom: 20rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.employee-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.employee-name {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.period {
+  font-size: 26rpx;
+  color: #999;
+}
+
+.status {
+  padding: 8rpx 16rpx;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+  font-weight: bold;
+}
+
+.status-已发放 {
+  background-color: #c8e6c9;
+  color: #2e7d32;
+}
+
+.status-待发放 {
+  background-color: #fff9c4;
+  color: #f57c00;
+}
+
+.status-未发放 {
+  background-color: #ffccbc;
+  color: #c62828;
+}
+
+.salary-details {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.salary-components {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15rpx;
+}
+
+.component {
+  font-size: 24rpx;
+  color: #666;
+  background-color: #f5f5f5;
+  padding: 10rpx 15rpx;
+  border-radius: 8rpx;
+}
+
+.deductions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15rpx;
+}
+
+.deduction {
+  font-size: 24rpx;
+  color: #c62828;
+  background-color: #fff3f3;
+  padding: 10rpx 15rpx;
+  border-radius: 8rpx;
+}
+
+.net-salary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx;
+  background-color: #e8f5e8;
+  border-radius: 8rpx;
+}
+
+.label {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #2e7d32;
+}
+
+.amount {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #2e7d32;
+}
+
+.pay-date {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.salary-actions {
+  margin-top: 20rpx;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.action-btn {
+  padding: 15rpx 30rpx;
+  border: none;
+  border-radius: 8rpx;
+  font-size: 26rpx;
+}
+
+.pay-btn {
+  background-color: #019fa0;
+  color: white;
+}
+
+/* 工资条列表样式 */
+.payslip-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.payslip-item {
+  background-color: white;
+  border-radius: 10rpx;
+  padding: 30rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.payslip-header {
+  margin-bottom: 20rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.status-已查看 {
+  background-color: #c8e6c9;
+  color: #2e7d32;
+}
+
+.status-未查看 {
+  background-color: #fff9c4;
+  color: #f57c00;
+}
+
+.payslip-details {
+  display: flex;
+  flex-direction: column;
+  gap: 15rpx;
+}
+
+.income-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 26rpx;
+  color: #666;
+}
+
+.income-label {
+  color: #2e7d32;
+}
+
+.deduction-label {
+  color: #c62828;
+}
+
+.issue-date {
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* 空状态样式 */
+.empty-state {
+  text-align: center;
+  padding: 100rpx 0;
+  color: #999;
+}
+
+.empty-text {
+  font-size: 32rpx;
+}

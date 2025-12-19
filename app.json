@@ -14,7 +14,12 @@
     "pages/secPage/onlineResume/onlineResume",
     "pages/secPage/userBaseInfo/userBaseInfo",
     "pages/secPage/imageCut/imageCut",
-    "pages/secPage/editUserDesc/editUserDecs"
+    "pages/secPage/editUserDesc/editUserDecs",
+    "pages/employee/manage/manage",
+    "pages/employee/performance/performance",
+    "pages/employee/attendance/attendance",
+    "pages/employee/salary/salary",
+    "pages/employee/training/training"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

@@ -1,0 +1,90 @@
+<view class="container">
+  <!-- 标签切换 -->
+  <view class="tab-container">
+    <view class="tab {{activeTab === 'salary' ? 'active' : ''}}" data-tab="salary" bindtap="switchTab">
+      工资管理
+    </view>
+    <view class="tab {{activeTab === 'payslip' ? 'active' : ''}}" data-tab="payslip" bindtap="switchTab">
+      工资条
+    </view>
+  </view>
+
+  <!-- 工资管理内容 -->
+  <view class="content" wx:if="{{activeTab === 'salary'}}">
+    <view class="action-buttons">
+      <button class="add-btn" bindtap="addSalary">+ 添加薪资记录</button>
+      <button class="generate-btn" bindtap="generatePayslip">生成工资条</button>
+    </view>
+
+    <view class="salary-list">
+      <block wx:for="{{salaryRecords}}" wx:key="id">
+        <view class="salary-item">
+          <view class="salary-header">
+            <view class="employee-info">
+              <text class="employee-name">{{item.employeeName}}</text>
+              <text class="period">{{item.period}}</text>
+            </view>
+            <text class="status status-{{item.status}}">{{item.status}}</text>
+          </view>
+          <view class="salary-details">
+            <view class="salary-components">
+              <text class="component">基本工资: ¥{{item.basicSalary}}</text>
+              <text class="component">绩效奖金: ¥{{item.bonus}}</text>
+              <text class="component">加班工资: ¥{{item.overtimePay}}</text>
+              <text class="component">补贴: ¥{{item.allowance}}</text>
+            </view>
+            <view class="deductions">
+              <text class="deduction">个税: ¥{{item.deductions.tax}}</text>
+              <text class="deduction">社保: ¥{{item.deductions.socialSecurity}}</text>
+              <text class="deduction">公积金: ¥{{item.deductions.housingFund}}</text>
+            </view>
+            <view class="net-salary">
+              <text class="label">实发工资:</text>
+              <text class="amount">¥{{item.netSalary}}</text>
+            </view>
+            <view class="pay-date" wx:if="{{item.payDate}}">发放日期: {{item.payDate}}</view>
+          </view>
+          <view class="salary-actions" wx:if="{{item.status === '待发放'}}">
+            <button class="action-btn pay-btn" bindtap="paySalary" data-id="{{item.id}}">发放</button>
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <view class="empty-state" wx:if="{{salaryRecords.length === 0}}">
+      <text class="empty-text">暂无薪资记录</text>
+    </view>
+  </view>
+
+  <!-- 工资条内容 -->
+  <view class="content" wx:if="{{activeTab === 'payslip'}}">
+    <view class="payslip-list">
+      <block wx:for="{{payslips}}" wx:key="id">
+        <view class="payslip-item" bindtap="viewPayslip" data-id="{{item.id}}">
+          <view class="payslip-header">
+            <view class="employee-info">
+              <text class="employee-name">{{item.employeeName}}</text>
+              <text class="period">{{item.period}}</text>
+            </view>
+            <text class="status status-{{item.status}}">{{item.status}}</text>
+          </view>
+          <view class="payslip-details">
+            <view class="income-info">
+              <text class="income-label">总收入: ¥{{item.totalIncome}}</text>
+              <text class="deduction-label">总扣除: ¥{{item.totalDeduction}}</text>
+            </view>
+            <view class="net-salary">
+              <text class="label">实发工资:</text>
+              <text class="amount">¥{{item.netSalary}}</text>
+            </view>
+            <view class="issue-date">发放日期: {{item.issueDate}}</view>
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <view class="empty-state" wx:if="{{payslips.length === 0}}">
+      <text class="empty-text">暂无工资条数据</text>
+    </view>
+  </view>
+</view>

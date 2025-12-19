@@ -1,0 +1,86 @@
+<view class="container">
+  <!-- 标签切换 -->
+  <view class="tab-container">
+    <view class="tab {{activeTab === 'attendance' ? 'active' : ''}}" data-tab="attendance" bindtap="switchTab">
+      考勤记录
+    </view>
+    <view class="tab {{activeTab === 'leave' ? 'active' : ''}}" data-tab="leave" bindtap="switchTab">
+      请假审批
+    </view>
+  </view>
+
+  <!-- 考勤记录内容 -->
+  <view class="content" wx:if="{{activeTab === 'attendance'}}">
+    <view class="add-btn-container">
+      <button class="add-btn" bindtap="addAttendance">+ 添加考勤记录</button>
+    </view>
+
+    <view class="attendance-list">
+      <block wx:for="{{attendanceRecords}}" wx:key="id">
+        <view class="attendance-item" bindtap="viewAttendanceDetail" data-id="{{item.id}}">
+          <view class="attendance-header">
+            <view class="employee-info">
+              <text class="employee-name">{{item.employeeName}}</text>
+              <text class="date">{{item.date}}</text>
+            </view>
+            <text class="status status-{{item.status}}">{{item.status}}</text>
+          </view>
+          <view class="attendance-details">
+            <view class="time-info">
+              <text class="clock-in">上班: {{item.clockIn}}</text>
+              <text class="clock-out">下班: {{item.clockOut}}</text>
+            </view>
+            <view class="working-hours">工作时长: {{item.workingHours}}小时</view>
+            <view class="note" wx:if="{{item.note}}">备注: {{item.note}}</view>
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <view class="empty-state" wx:if="{{attendanceRecords.length === 0}}">
+      <text class="empty-text">暂无考勤记录</text>
+    </view>
+  </view>
+
+  <!-- 请假审批内容 -->
+  <view class="content" wx:if="{{activeTab === 'leave'}}">
+    <view class="add-btn-container">
+      <button class="add-btn" bindtap="addLeave">+ 提交请假申请</button>
+    </view>
+
+    <view class="leave-list">
+      <block wx:for="{{leaveApplications}}" wx:key="id">
+        <view class="leave-item">
+          <view class="leave-header">
+            <view class="employee-info">
+              <text class="employee-name">{{item.employeeName}}</text>
+              <text class="leave-type">{{item.leaveType}}</text>
+            </view>
+            <text class="status status-{{item.status}}">{{item.status}}</text>
+          </view>
+          <view class="leave-details">
+            <view class="date-range">
+              <text class="start-date">{{item.startDate}}</text>
+              <text class="separator">至</text>
+              <text class="end-date">{{item.endDate}}</text>
+              <text class="days">({{item.days}}天)</text>
+            </view>
+            <view class="reason">事由: {{item.reason}}</view>
+            <view class="approval-info" wx:if="{{item.approver}}">
+              <text class="approver">审批人: {{item.approver}}</text>
+              <text class="approve-date">审批日期: {{item.approveDate}}</text>
+            </view>
+            <view class="comment" wx:if="{{item.comment}}">审批意见: {{item.comment}}</view>
+          </view>
+          <view class="leave-actions" wx:if="{{item.status === '待审批'}}">
+            <button class="action-btn approve-btn" bindtap="approveLeave" data-id="{{item.id}}">审批</button>
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <view class="empty-state" wx:if="{{leaveApplications.length === 0}}">
+      <text class="empty-text">暂无请假申请</text>
+    </view>
+  </view>
+</view>

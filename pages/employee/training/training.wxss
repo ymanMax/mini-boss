@@ -1,0 +1,345 @@
+.container {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+/* 标签切换样式 */
+.tab-container {
+  display: flex;
+  background-color: white;
+  border-bottom: 2rpx solid #e0e0e0;
+}
+
+.tab {
+  flex: 1;
+  padding: 30rpx;
+  text-align: center;
+  font-size: 32rpx;
+  color: #666;
+  position: relative;
+}
+
+.tab.active {
+  color: #019fa0;
+  font-weight: bold;
+}
+
+.tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60rpx;
+  height: 4rpx;
+  background-color: #019fa0;
+}
+
+/* 内容区域样式 */
+.content {
+  padding: 20rpx;
+}
+
+/* 添加按钮样式 */
+.add-btn-container {
+  margin-bottom: 30rpx;
+}
+
+.add-btn {
+  width: 100%;
+  padding: 25rpx;
+  background-color: #019fa0;
+  color: white;
+  border: none;
+  border-radius: 10rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+}
+
+/* 培训计划列表样式 */
+.training-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.training-item {
+  background-color: white;
+  border-radius: 10rpx;
+  padding: 30rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.training-header {
+  margin-bottom: 20rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.training-info {
+  flex: 1;
+  margin-right: 20rpx;
+}
+
+.training-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8rpx;
+  line-height: 1.3;
+}
+
+.employee-name {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.training-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+  align-items: flex-end;
+}
+
+.type {
+  font-size: 24rpx;
+  color: #1565c0;
+  background-color: #e3f2fd;
+  padding: 8rpx 16rpx;
+  border-radius: 20rpx;
+}
+
+.status {
+  padding: 8rpx 16rpx;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+  font-weight: bold;
+}
+
+.status-进行中 {
+  background-color: #fff9c4;
+  color: #f57c00;
+}
+
+.status-已完成 {
+  background-color: #c8e6c9;
+  color: #2e7d32;
+}
+
+.status-待开始 {
+  background-color: #e3f2fd;
+  color: #1565c0;
+}
+
+.training-details {
+  display: flex;
+  flex-direction: column;
+  gap: 15rpx;
+}
+
+.date-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 26rpx;
+  color: #666;
+}
+
+.duration {
+  color: #999;
+}
+
+.trainer-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 24rpx;
+  color: #666;
+}
+
+.progress-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 12rpx;
+  background-color: #f0f0f0;
+  border-radius: 6rpx;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: #019fa0;
+  border-radius: 6rpx;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  font-size: 24rpx;
+  color: #666;
+  text-align: center;
+}
+
+.completion-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 24rpx;
+  color: #666;
+}
+
+.score {
+  font-weight: bold;
+  color: #019fa0;
+}
+
+.description {
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.5;
+  background-color: #fafafa;
+  padding: 15rpx;
+  border-radius: 8rpx;
+}
+
+/* 发展计划列表样式 */
+.development-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.development-item {
+  background-color: white;
+  border-radius: 10rpx;
+  padding: 30rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.development-header {
+  margin-bottom: 20rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.development-info {
+  flex: 1;
+  margin-right: 20rpx;
+}
+
+.development-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8rpx;
+  line-height: 1.3;
+}
+
+.development-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+  align-items: flex-end;
+}
+
+.period {
+  font-size: 24rpx;
+  color: #666;
+  background-color: #f5f5f5;
+  padding: 8rpx 16rpx;
+  border-radius: 20rpx;
+}
+
+.development-details {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.position-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+  font-size: 26rpx;
+  color: #666;
+}
+
+.current-position {
+  color: #999;
+}
+
+.target-position {
+  color: #019fa0;
+  font-weight: bold;
+}
+
+.section-title {
+  display: block;
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15rpx;
+}
+
+.objectives {
+  display: flex;
+  flex-direction: column;
+  gap: 15rpx;
+}
+
+.objective-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 15rpx;
+  background-color: #fafafa;
+  border-radius: 8rpx;
+}
+
+.objective {
+  font-size: 26rpx;
+  color: #333;
+  flex: 1;
+  margin-right: 15rpx;
+  line-height: 1.4;
+}
+
+.priority {
+  padding: 6rpx 12rpx;
+  border-radius: 15rpx;
+  font-size: 22rpx;
+  font-weight: bold;
+  margin-right: 10rpx;
+}
+
+.priority-高 {
+  background-color: #ffcdd2;
+  color: #c62828;
+}
+
+.priority-中 {
+  background-color: #fff9c4;
+  color: #f57c00;
+}
+
+.priority-低 {
+  background-color: #e3f2fd;
+  color: #1565c0;
+}
+
+/* 空状态样式 */
+.empty-state {
+  text-align: center;
+  padding: 100rpx 0;
+  color: #999;
+}
+
+.empty-text {
+  font-size: 32rpx;
+}

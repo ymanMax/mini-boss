@@ -1,0 +1,111 @@
+<view class="container">
+  <!-- 标签切换 -->
+  <view class="tab-container">
+    <view class="tab {{activeTab === 'training' ? 'active' : ''}}" data-tab="training" bindtap="switchTab">
+      培训计划
+    </view>
+    <view class="tab {{activeTab === 'development' ? 'active' : ''}}" data-tab="development" bindtap="switchTab">
+      发展计划
+    </view>
+  </view>
+
+  <!-- 培训计划内容 -->
+  <view class="content" wx:if="{{activeTab === 'training'}}">
+    <view class="add-btn-container">
+      <button class="add-btn" bindtap="addTraining">+ 添加培训计划</button>
+    </view>
+
+    <view class="training-list">
+      <block wx:for="{{trainingPrograms}}" wx:key="id">
+        <view class="training-item" bindtap="viewTrainingDetail" data-id="{{item.id}}">
+          <view class="training-header">
+            <view class="training-info">
+              <text class="training-title">{{item.title}}</text>
+              <text class="employee-name">{{item.employeeName}}</text>
+            </view>
+            <view class="training-meta">
+              <text class="type">{{item.type}}</text>
+              <text class="status status-{{item.status}}">{{item.status}}</text>
+            </view>
+          </view>
+          <view class="training-details">
+            <view class="date-info">
+              <text class="date">{{item.startDate}} 至 {{item.endDate}}</text>
+              <text class="duration">{{item.duration}}</text>
+            </view>
+            <view class="trainer-info">
+              <text class="trainer">讲师: {{item.trainer}}</text>
+              <text class="location">{{item.location}}</text>
+            </view>
+            <view class="progress-container" wx:if="{{item.progress < 100}}">
+              <view class="progress-bar">
+                <view class="progress-fill" style="width: {{item.progress}}%;"></view>
+              </view>
+              <text class="progress-text">{{item.progress}}% 完成</text>
+            </view>
+            <view class="completion-info" wx:if="{{item.status === '已完成'}}">
+              <text class="score">成绩: {{item.score}}分</text>
+              <text class="completion-date">完成日期: {{item.completionDate}}</text>
+            </view>
+            <view class="description">{{item.description}}</view>
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <view class="empty-state" wx:if="{{trainingPrograms.length === 0}}">
+      <text class="empty-text">暂无培训计划数据</text>
+    </view>
+  </view>
+
+  <!-- 发展计划内容 -->
+  <view class="content" wx:if="{{activeTab === 'development'}}">
+    <view class="add-btn-container">
+      <button class="add-btn" bindtap="addDevelopment">+ 添加发展计划</button>
+    </view>
+
+    <view class="development-list">
+      <block wx:for="{{developmentPlans}}" wx:key="id">
+        <view class="development-item" bindtap="viewDevelopmentDetail" data-id="{{item.id}}">
+          <view class="development-header">
+            <view class="development-info">
+              <text class="development-title">{{item.title}}</text>
+              <text class="employee-name">{{item.employeeName}}</text>
+            </view>
+            <view class="development-meta">
+              <text class="period">{{item.period}}</text>
+              <text class="status status-{{item.status}}">{{item.status}}</text>
+            </view>
+          </view>
+          <view class="development-details">
+            <view class="position-info">
+              <text class="current-position">当前职位: {{item.currentPosition}}</text>
+              <text class="target-position">目标职位: {{item.targetPosition}}</text>
+              <text class="target-date">目标日期: {{item.targetDate}}</text>
+            </view>
+            <view class="progress-container">
+              <view class="progress-bar">
+                <view class="progress-fill" style="width: {{item.progress}}%;"></view>
+              </view>
+              <text class="progress-text">{{item.progress}}% 完成</text>
+            </view>
+            <view class="objectives">
+              <text class="section-title">主要目标:</text>
+              <block wx:for="{{item.objectives}}" wx:key="index">
+                <view class="objective-item">
+                  <text class="objective">{{index + 1}}. {{item.content}}</text>
+                  <text class="priority priority-{{item.priority}}">{{item.priority}}</text>
+                  <text class="status status-{{item.status}}">{{item.status}}</text>
+                </view>
+              </block>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <view class="empty-state" wx:if="{{developmentPlans.length === 0}}">
+      <text class="empty-text">暂无发展计划数据</text>
+    </view>
+  </view>
+</view>
