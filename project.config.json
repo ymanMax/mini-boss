@@ -121,6 +121,12 @@
           "name": "管理页面",
           "pathName": "pages/secPage/manage/manage",
           "scene": null
+        },
+        {
+          "id": -1,
+          "name": "项目管理页面",
+          "pathName": "pages/project/manage/manage",
+          "scene": null
         }
       ]
     }
