@@ -1,0 +1,176 @@
+<!-- 合同管理页面 -->
+<view class="container">
+  <!-- 顶部操作栏 -->
+  <view class="top-bar">
+    <button class="add-btn" bindtap="openContractModal">+ 添加合同</button>
+  </view>
+
+  <!-- 合同统计 -->
+  <view class="stats-section">
+    <view class="section-title">合同统计</view>
+    <view class="stats-cards">
+      <view class="stats-card">
+        <view class="card-value">¥650,000</view>
+        <view class="card-label">合同总金额</view>
+      </view>
+      <view class="stats-card">
+        <view class="card-value">1</view>
+        <view class="card-label">已生效合同</view>
+      </view>
+      <view class="stats-card">
+        <view class="card-value">1</view>
+        <view class="card-label">待签署合同</view>
+      </view>
+      <view class="stats-card">
+        <view class="card-value">2</view>
+        <view class="card-label">总合同数</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 合同列表 -->
+  <view class="contract-section">
+    <view class="section-title">合同列表</view>
+
+    <view class="contract-list">
+      <block wx:for="{{contracts}}" wx:key="id">
+        <view class="contract-item">
+          <view class="contract-info">
+            <view class="contract-header">
+              <view class="contract-title">{{item.title}}</view>
+              <text class="contract-number">{{item.contractNumber}}</text>
+            </view>
+            <view class="contract-customer">客户: {{item.customerName}}</view>
+            <view class="contract-amount">金额: ¥{{item.amount}}</view>
+            <view class="contract-meta">
+              <text class="status status-{{item.status}}">
+                {{item.status === 'draft' ? '草稿' : item.status === 'pending' ? '待签署' : item.status === 'active' ? '已生效' : item.status === 'expired' ? '已过期' : '已终止'}}
+              </text>
+              <text wx:if="{{item.startDate}}" class="start-date">开始: {{item.startDate}}</text>
+              <text wx:if="{{item.endDate}}" class="end-date">结束: {{item.endDate}}</text>
+              <text wx:if="{{item.signDate}}" class="sign-date">签署: {{item.signDate}}</text>
+            </view>
+            <view class="contract-description">{{item.description}}</view>
+          </view>
+
+          <view class="contract-actions">
+            <button class="detail-btn"
+                    data-contract-id="{{item.id}}"
+                    bindtap="viewContractDetail">
+              详情
+            </button>
+            <button class="download-btn"
+                    data-contract-id="{{item.id}}"
+                    bindtap="downloadContract">
+              下载
+            </button>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>
+
+<!-- 添加合同弹窗 -->
+<view class="modal" wx:if="{{showContractModal}}">
+  <view class="modal-content">
+    <view class="modal-header">
+      <text>添加合同</text>
+      <text class="close-btn" bindtap="closeContractModal">×</text>
+    </view>
+
+    <view class="modal-body">
+      <view class="form-item">
+        <label>选择客户</label>
+        <picker value="{{contractForm.customerId}}"
+                range="{{customers}}"
+                range-key="name"
+                bindchange="selectCustomer">
+          <view class="picker">{{contractForm.customerName || '请选择客户'}}</view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <label>合同编号</label>
+        <view class="input-group">
+          <input placeholder="请输入合同编号"
+                 value="{{contractForm.contractNumber}}"
+                 data-field="contractNumber"
+                 bindinput="onContractInput" />
+          <button class="generate-btn" bindtap="generateContractNumber">生成</button>
+        </view>
+      </view>
+
+      <view class="form-item">
+        <label>合同名称</label>
+        <input placeholder="请输入合同名称"
+               value="{{contractForm.title}}"
+               data-field="title"
+               bindinput="onContractInput" />
+      </view>
+
+      <view class="form-item">
+        <label>合同金额</label>
+        <input placeholder="请输入合同金额"
+               value="{{contractForm.amount}}"
+               data-field="amount"
+               bindinput="onContractInput" />
+      </view>
+
+      <view class="form-item">
+        <label>合同状态</label>
+        <picker value="{{contractForm.status}}"
+                range="{{['草稿', '待签署', '已生效', '已过期', '已终止']}}"
+                data-field="status"
+                bindchange="onContractInput">
+          <view class="picker">
+            {{contractForm.status === 'draft' ? '草稿' : contractForm.status === 'pending' ? '待签署' : contractForm.status === 'active' ? '已生效' : contractForm.status === 'expired' ? '已过期' : '已终止'}}
+          </view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <label>开始日期</label>
+        <picker mode="date"
+                value="{{contractForm.startDate}}"
+                data-field="startDate"
+                bindchange="onContractInput">
+          <view class="picker">{{contractForm.startDate || '请选择开始日期'}}</view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <label>结束日期</label>
+        <picker mode="date"
+                value="{{contractForm.endDate}}"
+                data-field="endDate"
+                bindchange="onContractInput">
+          <view class="picker">{{contractForm.endDate || '请选择结束日期'}}</view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <label>签署日期</label>
+        <picker mode="date"
+                value="{{contractForm.signDate}}"
+                data-field="signDate"
+                bindchange="onContractInput">
+          <view class="picker">{{contractForm.signDate || '请选择签署日期'}}</view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <label>合同描述</label>
+        <textarea placeholder="请输入合同描述"
+                  value="{{contractForm.description}}"
+                  data-field="description"
+                  bindinput="onContractInput" />
+      </view>
+    </view>
+
+    <view class="modal-footer">
+      <button class="cancel-btn" bindtap="closeContractModal">取消</button>
+      <button class="confirm-btn" bindtap="addContract">确定</button>
+    </view>
+  </view>
+</view>

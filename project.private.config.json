@@ -1,7 +1,19 @@
 {
   "libVersion": "3.12.1",
   "projectname": "miniprogram-2",
-  "condition": {},
+  "condition": {
+    "miniprogram": {
+      "list": [
+        {
+          "name": "pages/customer/manage/manage",
+          "pathName": "pages/order/manage/manage",
+          "query": "",
+          "scene": null,
+          "launchMode": "default"
+        }
+      ]
+    }
+  },
   "setting": {
     "urlCheck": false,
     "coverView": true,

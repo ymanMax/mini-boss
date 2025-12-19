@@ -1,0 +1,201 @@
+<!-- 客户服务页面 -->
+<view class="container">
+  <!-- 顶部操作栏 -->
+  <view class="top-bar">
+    <button class="add-btn" bindtap="openTicketModal">+ 添加工单</button>
+  </view>
+
+  <!-- 服务统计 -->
+  <view class="stats-section">
+    <view class="section-title">服务统计</view>
+    <view class="stats-cards">
+      <view class="stats-card">
+        <view class="card-value">3</view>
+        <view class="card-label">总工单数</view>
+      </view>
+      <view class="stats-card">
+        <view class="card-value">1</view>
+        <view class="card-label">待处理工单</view>
+      </view>
+      <view class="stats-card">
+        <view class="card-value">1</view>
+        <view class="card-label">处理中工单</view>
+      </view>
+      <view class="stats-card">
+        <view class="card-value">1</view>
+        <view class="card-label">已完成工单</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 服务工单列表 -->
+  <view class="ticket-section">
+    <view class="section-title">服务工单</view>
+
+    <view class="ticket-list">
+      <block wx:for="{{serviceTickets}}" wx:key="id">
+        <view class="ticket-item">
+          <view class="ticket-info">
+            <view class="ticket-header">
+              <view class="ticket-title">{{item.title}}</view>
+              <text class="ticket-number">{{item.ticketNumber}}</text>
+            </view>
+            <view class="ticket-customer">客户: {{item.customerName}}</view>
+            <view class="ticket-meta">
+              <text class="priority priority-{{item.priority}}">
+                {{item.priority === 'high' ? '高' : item.priority === 'medium' ? '中' : '低'}}
+              </text>
+              <text class="status status-{{item.status}}">
+                {{item.status === 'open' ? '待处理' : item.status === 'in_progress' ? '处理中' : '已完成'}}
+              </text>
+              <text class="type type-{{item.type}}">
+                {{item.type === 'technical' ? '技术问题' : item.type === 'training' ? '培训需求' : '咨询'}}}
+              </text>
+              <text wx:if="{{item.assignedTo}}" class="assigned">负责人: {{item.assignedTo}}</text>
+            </view>
+            <view class="ticket-description">{{item.description}}</view>
+            <view class="ticket-time">
+              <text>创建: {{item.createTime}}</text>
+              <text wx:if="{{item.updateTime !== item.createTime}}">更新: {{item.updateTime}}</text>
+            </view>
+          </view>
+
+          <view class="ticket-actions">
+            <view class="status-buttons" wx:if="{{item.status === 'open'}}">
+              <button class="status-btn process-btn"
+                      data-ticket-id="{{item.id}}"
+                      data-status="in_progress"
+                      bindtap="updateTicketStatus">
+                开始处理
+              </button>
+              <button class="status-btn close-btn"
+                      data-ticket-id="{{item.id}}"
+                      data-status="closed"
+                      bindtap="updateTicketStatus">
+                标记为已完成
+              </button>
+            </view>
+            <view class="status-buttons" wx:if="{{item.status === 'in_progress'}}">
+              <button class="status-btn close-btn"
+                      data-ticket-id="{{item.id}}"
+                      data-status="closed"
+                      bindtap="updateTicketStatus">
+                标记为已完成
+              </button>
+            </view>
+            <button class="detail-btn"
+                    data-ticket-id="{{item.id}}"
+                    bindtap="viewTicketDetail">
+              详情
+            </button>
+            <button class="assign-btn"
+                    data-ticket-id="{{item.id}}"
+                    bindtap="assignTicket">
+              分配
+            </button>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>
+
+<!-- 添加工单弹窗 -->
+<view class="modal" wx:if="{{showTicketModal}}">
+  <view class="modal-content">
+    <view class="modal-header">
+      <text>添加服务工单</text>
+      <text class="close-btn" bindtap="closeTicketModal">×</text>
+    </view>
+
+    <view class="modal-body">
+      <view class="form-item">
+        <label>选择客户</label>
+        <picker value="{{ticketForm.customerId}}"
+                range="{{customers}}"
+                range-key="name"
+                bindchange="selectCustomer">
+          <view class="picker">{{ticketForm.customerName || '请选择客户'}}</view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <label>工单编号</label>
+        <view class="input-group">
+          <input placeholder="请输入工单编号"
+                 value="{{ticketForm.ticketNumber}}"
+                 data-field="ticketNumber"
+                 bindinput="onTicketInput" />
+          <button class="generate-btn" bindtap="generateTicketNumber">生成</button>
+        </view>
+      </view>
+
+      <view class="form-item">
+        <label>工单标题</label>
+        <input placeholder="请输入工单标题"
+               value="{{ticketForm.title}}"
+               data-field="title"
+               bindinput="onTicketInput" />
+      </view>
+
+      <view class="form-item">
+        <label>优先级</label>
+        <picker value="{{ticketForm.priority}}"
+                range="{{['高', '中', '低']}}"
+                data-field="priority"
+                bindchange="onTicketInput">
+          <view class="picker">
+            {{ticketForm.priority === 'high' ? '高' : ticketForm.priority === 'medium' ? '中' : '低'}}
+          </view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <label>工单类型</label>
+        <picker value="{{ticketForm.type}}"
+                range="{{['技术问题', '培训需求', '咨询']}}"
+                data-field="type"
+                bindchange="onTicketInput">
+          <view class="picker">
+            {{ticketForm.type === 'technical' ? '技术问题' : ticketForm.type === 'training' ? '培训需求' : '咨询'}}}
+          </view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <label>工单状态</label>
+        <picker value="{{ticketForm.status}}"
+                range="{{['待处理', '处理中', '已完成']}}"
+                data-field="status"
+                bindchange="onTicketInput">
+          <view class="picker">
+            {{ticketForm.status === 'open' ? '待处理' : ticketForm.status === 'in_progress' ? '处理中' : '已完成'}}
+          </view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <label>负责人</label>
+        <picker value="{{ticketForm.assignedTo}}"
+                range="{{agents}}"
+                range-key="name"
+                bindchange="selectAgent">
+          <view class="picker">{{ticketForm.assignedTo || '请选择负责人'}}</view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <label>问题描述</label>
+        <textarea placeholder="请输入问题描述"
+                  value="{{ticketForm.description}}"
+                  data-field="description"
+                  bindinput="onTicketInput" />
+      </view>
+    </view>
+
+    <view class="modal-footer">
+      <button class="cancel-btn" bindtap="closeTicketModal">取消</button>
+      <button class="confirm-btn" bindtap="addTicket">确定</button>
+    </view>
+  </view>
+</view>

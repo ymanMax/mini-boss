@@ -1,0 +1,154 @@
+<!-- 销售机会页面 -->
+<view class="container">
+  <!-- 顶部操作栏 -->
+  <view class="top-bar">
+    <button class="add-btn" bindtap="openOpportunityModal">+ 添加机会</button>
+    <button class="report-btn" bindtap="viewSalesForecast">预测报告</button>
+  </view>
+
+  <!-- 销售概览 -->
+  <view class="overview-section">
+    <view class="section-title">销售概览</view>
+    <view class="overview-cards">
+      <view class="overview-card">
+        <view class="card-value">¥1,250,000</view>
+        <view class="card-label">预计销售额</view>
+        <view class="card-change positive">+12% 较上月</view>
+      </view>
+      <view class="overview-card">
+        <view class="card-value">28</view>
+        <view class="card-label">活跃机会</view>
+        <view class="card-change positive">+5 较上月</view>
+      </view>
+      <view class="overview-card">
+        <view class="card-value">68%</view>
+        <view class="card-label">赢单率</view>
+        <view class="card-change negative">-2% 较上月</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 销售机会列表 -->
+  <view class="opportunity-section">
+    <view class="section-title">销售机会</view>
+
+    <view class="opportunity-list">
+      <block wx:for="{{opportunities}}" wx:key="id">
+        <view class="opportunity-item">
+          <view class="opportunity-info">
+            <view class="opportunity-title">{{item.title}}</view>
+            <view class="opportunity-customer">客户: {{item.customerName}}</view>
+            <view class="opportunity-amount">金额: ¥{{item.amount}}</view>
+            <view class="opportunity-meta">
+              <text class="stage stage-{{item.stage}}">
+                {{item.stage === 'prospect' ? '潜在客户' : item.stage === 'qualify' ? '需求确认' : item.stage === 'proposal' ? '方案报价' : item.stage === 'negotiation' ? '商务谈判' : '已成单'}}
+              </text>
+              <text class="probability">赢率: {{item.probability}}</text>
+              <text class="close-date">预计成交: {{item.expectedCloseDate}}</text>
+              <text class="assigned">负责人: {{item.assignedTo}}</text>
+            </view>
+            <view class="opportunity-description">{{item.description}}</view>
+          </view>
+
+          <view class="opportunity-actions">
+            <button class="detail-btn"
+                    data-opportunity-id="{{item.id}}"
+                    bindtap="viewOpportunityDetail">
+              详情
+            </button>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>
+
+<!-- 添加销售机会弹窗 -->
+<view class="modal" wx:if="{{showOpportunityModal}}">
+  <view class="modal-content">
+    <view class="modal-header">
+      <text>添加销售机会</text>
+      <text class="close-btn" bindtap="closeOpportunityModal">×</text>
+    </view>
+
+    <view class="modal-body">
+      <view class="form-item">
+        <label>选择客户</label>
+        <picker value="{{opportunityForm.customerId}}"
+                range="{{customers}}"
+                range-key="name"
+                bindchange="selectCustomer">
+          <view class="picker">{{opportunityForm.customerName || '请选择客户'}}</view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <label>机会名称</label>
+        <input placeholder="请输入销售机会名称"
+               value="{{opportunityForm.title}}"
+               data-field="title"
+               bindinput="onOpportunityInput" />
+      </view>
+
+      <view class="form-item">
+        <label>预计金额</label>
+        <input placeholder="请输入预计金额"
+               value="{{opportunityForm.amount}}"
+               data-field="amount"
+               bindinput="onOpportunityInput" />
+      </view>
+
+      <view class="form-item">
+        <label>销售阶段</label>
+        <picker value="{{opportunityForm.stage}}"
+                range="{{['潜在客户', '需求确认', '方案报价', '商务谈判', '已成单']}}"
+                data-field="stage"
+                bindchange="onOpportunityInput">
+          <view class="picker">
+            {{opportunityForm.stage === 'prospect' ? '潜在客户' : opportunityForm.stage === 'qualify' ? '需求确认' : opportunityForm.stage === 'proposal' ? '方案报价' : opportunityForm.stage === 'negotiation' ? '商务谈判' : '已成单'}}
+          </view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <label>赢率</label>
+        <input placeholder="请输入赢率"
+               value="{{opportunityForm.probability}}"
+               data-field="probability"
+               disabled
+               bindinput="onOpportunityInput" />
+      </view>
+
+      <view class="form-item">
+        <label>预计成交日期</label>
+        <picker mode="date"
+                value="{{opportunityForm.expectedCloseDate}}"
+                data-field="expectedCloseDate"
+                bindchange="onOpportunityInput">
+          <view class="picker">{{opportunityForm.expectedCloseDate || '请选择预计成交日期'}}</view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <label>负责人</label>
+        <input placeholder="请输入负责人姓名"
+               value="{{opportunityForm.assignedTo}}"
+               data-field="assignedTo"
+               bindinput="onOpportunityInput" />
+      </view>
+
+      <view class="form-item">
+        <label>机会描述</label>
+        <textarea placeholder="请输入销售机会描述"
+                  value="{{opportunityForm.description}}"
+                  data-field="description"
+                  bindinput="onOpportunityInput" />
+      </view>
+    </view>
+
+    <view class="modal-footer">
+      <button class="cancel-btn" bindtap="closeOpportunityModal">取消</button>
+      <button class="confirm-btn" bindtap="addOpportunity">确定</button>
+    </view>
+  </view>
+</view>

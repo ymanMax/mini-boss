@@ -1,0 +1,206 @@
+<!-- 订单管理页面 -->
+<view class="container">
+  <!-- 顶部操作栏 -->
+  <view class="top-bar">
+    <button class="add-btn" bindtap="openOrderModal">+ 添加订单</button>
+  </view>
+
+  <!-- 订单统计 -->
+  <view class="stats-section">
+    <view class="section-title">订单统计</view>
+    <view class="stats-cards">
+      <view class="stats-card">
+        <view class="card-value">¥650,000</view>
+        <view class="card-label">订单总金额</view>
+      </view>
+      <view class="stats-card">
+        <view class="card-value">1</view>
+        <view class="card-label">已支付订单</view>
+      </view>
+      <view class="stats-card">
+        <view class="card-value">1</view>
+        <view class="card-label">待处理订单</view>
+      </view>
+      <view class="stats-card">
+        <view class="card-value">2</view>
+        <view class="card-label">总订单数</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 订单列表 -->
+  <view class="order-section">
+    <view class="section-title">订单列表</view>
+
+    <view class="order-list">
+      <block wx:for="{{orders}}" wx:key="id">
+        <view class="order-item">
+          <view class="order-info">
+            <view class="order-header">
+              <view class="order-title">{{item.title}}</view>
+              <text class="order-number">{{item.orderNumber}}</text>
+            </view>
+            <view class="order-customer">客户: {{item.customerName}}</view>
+            <view wx:if="{{item.contractNumber}}" class="order-contract">合同: {{item.contractNumber}}</view>
+            <view class="order-amount">金额: ¥{{item.amount}}</view>
+            <view class="order-meta">
+              <text class="status status-{{item.status}}">
+                {{item.status === 'pending' ? '待处理' : item.status === 'paid' ? '已支付' : item.status === 'shipped' ? '已发货' : item.status === 'delivered' ? '已交付' : item.status === 'completed' ? '已完成' : '已取消'}}
+              </text>
+              <text wx:if="{{item.orderDate}}" class="order-date">下单: {{item.orderDate}}</text>
+              <text wx:if="{{item.deliveryDate}}" class="delivery-date">交付: {{item.deliveryDate}}</text>
+            </view>
+            <view class="order-description">{{item.description}}</view>
+          </view>
+
+          <view class="order-actions">
+            <view class="status-buttons" wx:if="{{item.status === 'pending'}}">
+              <button class="status-btn paid-btn"
+                      data-order-id="{{item.id}}"
+                      data-status="paid"
+                      bindtap="updateOrderStatus">
+                标记为已支付
+              </button>
+              <button class="status-btn cancel-btn"
+                      data-order-id="{{item.id}}"
+                      data-status="cancelled"
+                      bindtap="updateOrderStatus">
+                取消订单
+              </button>
+            </view>
+            <view class="status-buttons" wx:if="{{item.status === 'paid'}}">
+              <button class="status-btn shipped-btn"
+                      data-order-id="{{item.id}}"
+                      data-status="shipped"
+                      bindtap="updateOrderStatus">
+                标记为已发货
+              </button>
+            </view>
+            <view class="status-buttons" wx:if="{{item.status === 'shipped'}}">
+              <button class="status-btn delivered-btn"
+                      data-order-id="{{item.id}}"
+                      data-status="delivered"
+                      bindtap="updateOrderStatus">
+                标记为已交付
+              </button>
+            </view>
+            <button class="detail-btn"
+                    data-order-id="{{item.id}}"
+                    bindtap="viewOrderDetail">
+              详情
+            </button>
+            <button class="download-btn"
+                    data-order-id="{{item.id}}"
+                    bindtap="downloadOrder">
+              下载
+            </button>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>
+
+<!-- 添加订单弹窗 -->
+<view class="modal" wx:if="{{showOrderModal}}">
+  <view class="modal-content">
+    <view class="modal-header">
+      <text>添加订单</text>
+      <text class="close-btn" bindtap="closeOrderModal">×</text>
+    </view>
+
+    <view class="modal-body">
+      <view class="form-item">
+        <label>选择客户</label>
+        <picker value="{{orderForm.customerId}}"
+                range="{{customers}}"
+                range-key="name"
+                bindchange="selectCustomer">
+          <view class="picker">{{orderForm.customerName || '请选择客户'}}</view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <label>关联合同</label>
+        <picker value="{{orderForm.contractId}}"
+                range="{{contracts}}"
+                range-key="number"
+                bindchange="selectContract">
+          <view class="picker">{{orderForm.contractNumber || '请选择合同'}}</view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <label>订单编号</label>
+        <view class="input-group">
+          <input placeholder="请输入订单编号"
+                 value="{{orderForm.orderNumber}}"
+                 data-field="orderNumber"
+                 bindinput="onOrderInput" />
+          <button class="generate-btn" bindtap="generateOrderNumber">生成</button>
+        </view>
+      </view>
+
+      <view class="form-item">
+        <label>订单名称</label>
+        <input placeholder="请输入订单名称"
+               value="{{orderForm.title}}"
+               data-field="title"
+               bindinput="onOrderInput" />
+      </view>
+
+      <view class="form-item">
+        <label>订单金额</label>
+        <input placeholder="请输入订单金额"
+               value="{{orderForm.amount}}"
+               data-field="amount"
+               bindinput="onOrderInput" />
+      </view>
+
+      <view class="form-item">
+        <label>订单状态</label>
+        <picker value="{{orderForm.status}}"
+                range="{{['待处理', '已支付', '已发货', '已交付', '已完成', '已取消']}}"
+                data-field="status"
+                bindchange="onOrderInput">
+          <view class="picker">
+            {{orderForm.status === 'pending' ? '待处理' : orderForm.status === 'paid' ? '已支付' : orderForm.status === 'shipped' ? '已发货' : orderForm.status === 'delivered' ? '已交付' : orderForm.status === 'completed' ? '已完成' : '已取消'}}
+          </view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <label>下单日期</label>
+        <picker mode="date"
+                value="{{orderForm.orderDate}}"
+                data-field="orderDate"
+                bindchange="onOrderInput">
+          <view class="picker">{{orderForm.orderDate || '请选择下单日期'}}</view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <label>交付日期</label>
+        <picker mode="date"
+                value="{{orderForm.deliveryDate}}"
+                data-field="deliveryDate"
+                bindchange="onOrderInput">
+          <view class="picker">{{orderForm.deliveryDate || '请选择交付日期'}}</view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <label>订单描述</label>
+        <textarea placeholder="请输入订单描述"
+                  value="{{orderForm.description}}"
+                  data-field="description"
+                  bindinput="onOrderInput" />
+      </view>
+    </view>
+
+    <view class="modal-footer">
+      <button class="cancel-btn" bindtap="closeOrderModal">取消</button>
+      <button class="confirm-btn" bindtap="addOrder">确定</button>
+    </view>
+  </view>
+</view>

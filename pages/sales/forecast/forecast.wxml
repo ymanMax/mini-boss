@@ -1,0 +1,176 @@
+<!-- 销售预测页面 -->
+<view class="container">
+  <!-- 顶部操作栏 -->
+  <view class="top-bar">
+    <view class="period-tabs">
+      <text class="tab {{forecastPeriod === 'month' ? 'active' : ''}}"
+            data-period="month"
+            bindtap="changeForecastPeriod">
+        月度
+      </text>
+      <text class="tab {{forecastPeriod === 'quarter' ? 'active' : ''}}"
+            data-period="quarter"
+            bindtap="changeForecastPeriod">
+        季度
+      </text>
+      <text class="tab {{forecastPeriod === 'year' ? 'active' : ''}}"
+            data-period="year"
+            bindtap="changeForecastPeriod">
+        年度
+      </text>
+    </view>
+    <button class="export-btn" bindtap="exportForecastReport">导出报告</button>
+  </view>
+
+  <!-- 销售摘要 -->
+  <view class="summary-section">
+    <view class="section-title">销售摘要</view>
+    <view class="summary-cards">
+      <view class="summary-card">
+        <view class="card-icon">💰</view>
+        <view class="card-content">
+          <view class="card-value">¥{{salesSummary.forecastRevenue.toLocaleString()}}</view>
+          <view class="card-label">预计总收入</view>
+        </view>
+      </view>
+      <view class="summary-card">
+        <view class="card-icon">📊</view>
+        <view class="card-content">
+          <view class="card-value">{{salesSummary.avgWinRate}}%</view>
+          <view class="card-label">平均赢单率</view>
+        </view>
+      </view>
+      <view class="summary-card">
+        <view class="card-icon">⏱️</view>
+        <view class="card-content">
+          <view class="card-value">{{salesSummary.avgSalesCycle}}天</view>
+          <view class="card-label">平均销售周期</view>
+        </view>
+      </view>
+      <view class="summary-card">
+        <view class="card-icon">🎯</view>
+        <view class="card-content">
+          <view class="card-value">{{salesSummary.totalOpportunities}}</view>
+          <view class="card-label">活跃机会数</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 预测数据表格 -->
+  <view class="forecast-section">
+    <view class="section-title">
+      销售预测数据
+      <button class="detail-btn" bindtap="viewDetailedAnalysis">详细分析</button>
+    </view>
+
+    <view class="forecast-table">
+      <!-- 月度数据 -->
+      <view wx:if="{{forecastPeriod === 'month'}}">
+        <view class="table-header">
+          <view class="table-cell">月份</view>
+          <view class="table-cell">实际销售额</view>
+          <view class="table-cell">预测销售额</view>
+          <view class="table-cell">预测准确率</view>
+        </view>
+        <view class="table-body">
+          <block wx:for="{{forecastData.monthly}}" wx:key="month">
+            <view class="table-row">
+              <view class="table-cell">{{item.month}}</view>
+              <view class="table-cell">¥{{item.actual.toLocaleString()}}</view>
+              <view class="table-cell">¥{{item.forecast.toLocaleString()}}</view>
+              <view class="table-cell">
+                <view class="probability-bar">
+                  <view class="probability-fill" style="width: {{item.probability}}%"></view>
+                </view>
+                <text class="probability-text">{{item.probability}}%</text>
+              </view>
+            </view>
+          </block>
+        </view>
+      </view>
+
+      <!-- 季度数据 -->
+      <view wx:if="{{forecastPeriod === 'quarter'}}">
+        <view class="table-header">
+          <view class="table-cell">季度</view>
+          <view class="table-cell">实际销售额</view>
+          <view class="table-cell">预测销售额</view>
+          <view class="table-cell">预测准确率</view>
+        </view>
+        <view class="table-body">
+          <block wx:for="{{forecastData.quarterly}}" wx:key="quarter">
+            <view class="table-row">
+              <view class="table-cell">{{item.quarter}}</view>
+              <view class="table-cell">¥{{item.actual.toLocaleString()}}</view>
+              <view class="table-cell">¥{{item.forecast.toLocaleString()}}</view>
+              <view class="table-cell">
+                <view class="probability-bar">
+                  <view class="probability-fill" style="width: {{item.probability}}%"></view>
+                </view>
+                <text class="probability-text">{{item.probability}}%</text>
+              </view>
+            </view>
+          </block>
+        </view>
+      </view>
+
+      <!-- 年度数据 -->
+      <view wx:if="{{forecastPeriod === 'year'}}">
+        <view class="table-header">
+          <view class="table-cell">年份</view>
+          <view class="table-cell">实际销售额</view>
+          <view class="table-cell">预测销售额</view>
+          <view class="table-cell">预测准确率</view>
+        </view>
+        <view class="table-body">
+          <block wx:for="{{forecastData.yearly}}" wx:key="year">
+            <view class="table-row">
+              <view class="table-cell">{{item.year}}</view>
+              <view class="table-cell">¥{{item.actual.toLocaleString()}}</view>
+              <view class="table-cell">¥{{item.forecast.toLocaleString()}}</view>
+              <view class="table-cell">
+                <view class="probability-bar">
+                  <view class="probability-fill" style="width: {{item.probability}}%"></view>
+                </view>
+                <text class="probability-text">{{item.probability}}%</text>
+              </view>
+            </view>
+          </block>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 导出弹窗 -->
+<view class="modal" wx:if="{{showExportModal}}">
+  <view class="modal-content">
+    <view class="modal-header">
+      <text>导出销售预测报告</text>
+      <text class="close-btn" bindtap="closeExportModal">×</text>
+    </view>
+
+    <view class="modal-body">
+      <view class="export-options">
+        <view class="option-item">
+          <text>导出格式:</text>
+          <text class="option-value">Excel (.xlsx)</text>
+        </view>
+        <view class="option-item">
+          <text>数据范围:</text>
+          <text class="option-value">{{forecastPeriod === 'month' ? '月度数据' : forecastPeriod === 'quarter' ? '季度数据' : '年度数据'}}</text>
+        </view>
+        <view class="option-item">
+          <text>包含图表:</text>
+          <text class="option-value">是</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="modal-footer">
+      <button class="cancel-btn" bindtap="closeExportModal">取消</button>
+      <button class="confirm-btn" bindtap="confirmExport">确认导出</button>
+    </view>
+  </view>
+</view>
