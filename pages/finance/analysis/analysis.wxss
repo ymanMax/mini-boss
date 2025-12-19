@@ -1,0 +1,153 @@
+/* pages/finance/analysis/analysis.wxss */
+.container {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx;
+  background-color: white;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.back-btn {
+  font-size: 28rpx;
+  color: #019fa0;
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.empty {
+  width: 80rpx;
+}
+
+.analysis-section {
+  background-color: white;
+  border-radius: 10rpx;
+  padding: 30rpx;
+  margin: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+  padding-bottom: 15rpx;
+  border-bottom: 1rpx solid #eee;
+}
+
+.trend-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15rpx;
+}
+
+.trend-item {
+  padding: 25rpx;
+  background-color: #f9f9f9;
+  border-radius: 8rpx;
+}
+
+.trend-month {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.trend-details {
+  display: flex;
+  justify-content: space-between;
+}
+
+.trend-item-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.detail-label {
+  font-size: 24rpx;
+  color: #999;
+  margin-bottom: 8rpx;
+}
+
+.detail-value {
+  font-size: 28rpx;
+  font-weight: bold;
+}
+
+.detail-value.income {
+  color: #07c160;
+}
+
+.detail-value.expense {
+  color: #ff4d4f;
+}
+
+.detail-value.profit {
+  color: #019fa0;
+}
+
+.detail-value.loss {
+  color: #ff4d4f;
+}
+
+.category-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.category-item {
+  padding: 20rpx;
+  background-color: #f9f9f9;
+  border-radius: 8rpx;
+}
+
+.category-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15rpx;
+}
+
+.category-name {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.category-percentage {
+  font-size: 26rpx;
+  font-weight: bold;
+  color: #019fa0;
+}
+
+.category-bar {
+  background-color: #e0e0e0;
+  height: 12rpx;
+  border-radius: 6rpx;
+  margin-bottom: 15rpx;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  background-color: #019fa0;
+  border-radius: 6rpx;
+}
+
+.category-amount {
+  font-size: 26rpx;
+  color: #666;
+  text-align: right;
+}

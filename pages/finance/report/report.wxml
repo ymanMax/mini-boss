@@ -1,0 +1,121 @@
+<!--pages/finance/report/report.wxml-->
+<view class="container">
+  <view class="page-header">
+    <text class="back-btn" bindtap="goBack">← 返回</text>
+    <text class="title">财务报表</text>
+    <view class="empty"></view>
+  </view>
+
+  <view class="tab-bar">
+    <view class="tab-item {{activeTab === 'balance' ? 'active' : ''}}" bindtap="switchTab" data-tab="balance">
+      资产负债表
+    </view>
+    <view class="tab-item {{activeTab === 'income' ? 'active' : ''}}" bindtap="switchTab" data-tab="income">
+      利润表
+    </view>
+    <view class="tab-item {{activeTab === 'cash' ? 'active' : ''}}" bindtap="switchTab" data-tab="cash">
+      现金流量表
+    </view>
+  </view>
+
+  <!-- 资产负债表 -->
+  <view class="report-content" wx:if="{{activeTab === 'balance'}}">
+    <view class="report-section">
+      <view class="section-title">资产</view>
+      <view class="report-item">
+        <text>流动资产</text>
+        <text>¥{{balanceSheet.assets?.current?.toLocaleString() || 0}}</text>
+      </view>
+      <view class="report-item">
+        <text>固定资产</text>
+        <text>¥{{balanceSheet.assets?.fixed?.toLocaleString() || 0}}</text>
+      </view>
+      <view class="report-item">
+        <text>其他资产</text>
+        <text>¥{{balanceSheet.assets?.other?.toLocaleString() || 0}}</text>
+      </view>
+      <view class="report-item total">
+        <text>资产总计</text>
+        <text>¥{{balanceSheet.assets?.total?.toLocaleString() || 0}}</text>
+      </view>
+    </view>
+
+    <view class="report-section">
+      <view class="section-title">负债</view>
+      <view class="report-item">
+        <text>流动负债</text>
+        <text>¥{{balanceSheet.liabilities?.current?.toLocaleString() || 0}}</text>
+      </view>
+      <view class="report-item">
+        <text>长期负债</text>
+        <text>¥{{balanceSheet.liabilities?.longTerm?.toLocaleString() || 0}}</text>
+      </view>
+      <view class="report-item total">
+        <text>负债总计</text>
+        <text>¥{{balanceSheet.liabilities?.total?.toLocaleString() || 0}}</text>
+      </view>
+    </view>
+
+    <view class="report-section">
+      <view class="section-title">所有者权益</view>
+      <view class="report-item">
+        <text>实收资本</text>
+        <text>¥{{balanceSheet.equity?.capital?.toLocaleString() || 0}}</text>
+      </view>
+      <view class="report-item">
+        <text>留存收益</text>
+        <text>¥{{balanceSheet.equity?.retained?.toLocaleString() || 0}}</text>
+      </view>
+      <view class="report-item total">
+        <text>权益总计</text>
+        <text>¥{{balanceSheet.equity?.total?.toLocaleString() || 0}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 利润表 -->
+  <view class="report-content" wx:if="{{activeTab === 'income'}}">
+    <view class="report-section">
+      <view class="section-title">利润表</view>
+      <view class="report-item">
+        <text>营业收入</text>
+        <text>¥{{incomeStatement?.revenue?.toLocaleString() || 0}}</text>
+      </view>
+      <view class="report-item">
+        <text>营业成本</text>
+        <text>¥{{incomeStatement?.cost?.toLocaleString() || 0}}</text>
+      </view>
+      <view class="report-item">
+        <text>营业费用</text>
+        <text>¥{{incomeStatement?.expenses?.toLocaleString() || 0}}</text>
+      </view>
+      <view class="report-item total">
+        <text>净利润</text>
+        <text>¥{{incomeStatement?.profit?.toLocaleString() || 0}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 现金流量表 -->
+  <view class="report-content" wx:if="{{activeTab === 'cash'}}">
+    <view class="report-section">
+      <view class="section-title">现金流量表</view>
+      <view class="report-item">
+        <text>经营活动现金流</text>
+        <text>¥{{cashFlow?.operating?.toLocaleString() || 0}}</text>
+      </view>
+      <view class="report-item">
+        <text>投资活动现金流</text>
+        <text>¥{{cashFlow?.investing?.toLocaleString() || 0}}</text>
+      </view>
+      <view class="report-item">
+        <text>筹资活动现金流</text>
+        <text>¥{{cashFlow?.financing?.toLocaleString() || 0}}</text>
+      </view>
+      <view class="report-item total">
+        <text>净现金流量</text>
+        <text>¥{{cashFlow?.net?.toLocaleString() || 0}}</text>
+      </view>
+    </view>
+  </view>
+</view>

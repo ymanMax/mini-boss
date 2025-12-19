@@ -1,0 +1,34 @@
+<!--pages/finance/budget/budget.wxml-->
+<view class="container">
+  <view class="page-header">
+    <text class="back-btn" bindtap="goBack">← 返回</text>
+    <text class="title">预算管理</text>
+    <view class="empty"></view>
+  </view>
+
+  <view class="budget-list">
+    <view wx:for="{{budgetPlans}}" wx:key="id" class="budget-item" bindtap="viewBudgetDetail" data-id="{{item.id}}">
+      <view class="budget-header">
+        <view class="budget-category">{{item.category}}</view>
+        <view class="budget-status {{item.status}}">{{item.status === 'under' ? '在控' : '超支'}}</view>
+      </view>
+      <view class="budget-period">{{item.year}}年{{item.month}}月</view>
+      <view class="budget-details">
+        <view class="budget-item-detail">
+          <text class="detail-label">预算</text>
+          <text class="detail-value">¥{{item.budgetAmount.toLocaleString()}}</text>
+        </view>
+        <view class="budget-item-detail">
+          <text class="detail-label">实际</text>
+          <text class="detail-value">¥{{item.actualAmount.toLocaleString()}}</text>
+        </view>
+        <view class="budget-item-detail">
+          <text class="detail-label">差异</text>
+          <text class="detail-value {{item.variance >= 0 ? 'positive' : 'negative'}}">
+            {{item.variance >= 0 ? '+' : ''}}¥{{item.variance.toLocaleString()}}
+          </text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
