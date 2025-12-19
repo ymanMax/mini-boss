@@ -1,0 +1,27 @@
+<!--pages/finance/voucher/voucher.wxml-->
+<view class="container">
+  <view class="page-header">
+    <text class="back-btn" bindtap="goBack">← 返回</text>
+    <text class="title">凭证管理</text>
+    <view class="empty"></view>
+  </view>
+
+  <view class="vouchers-list">
+    <view wx:for="{{vouchers}}" wx:key="id" class="voucher-item" bindtap="viewVoucherDetail" data-id="{{item.id}}">
+      <view class="voucher-header">
+        <view class="voucher-id">{{item.id}}</view>
+        <view class="voucher-status {{item.status === '已审核' ? 'approved' : 'pending'}}">{{item.status}}</view>
+      </view>
+      <view class="voucher-info">
+        <view class="voucher-date">{{item.date}}</view>
+        <view class="voucher-type">{{item.type}}</view>
+        <view class="voucher-amount">¥{{item.amount.toLocaleString()}}</view>
+      </view>
+      <view class="voucher-summary">{{item.summary}}</view>
+      <view class="voucher-footer">
+        <view class="voucher-creator">创建人：{{item.creator}}</view>
+        <view class="voucher-time">{{item.createTime}}</view>
+      </view>
+    </view>
+  </view>
+</view>

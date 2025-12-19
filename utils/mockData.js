@@ -539,4 +539,269 @@ mockApi.getOrderList = () => mockApiResponse(orderMockData.list);
 mockApi.getServiceTickets = () => mockApiResponse(serviceMockData.tickets);
 mockApi.getSurveyList = () => mockApiResponse(surveyMockData.list);
 
+// 财务管理相关Mock数据
+const accountingMockData = {
+  // 财务记账数据
+  records: [
+    {
+      id: '1',
+      date: '2025-01-20',
+      type: 'income',
+      category: '销售收入',
+      amount: 50000,
+      description: '产品销售货款',
+      account: '银行存款',
+      status: 'confirmed'
+    },
+    {
+      id: '2',
+      date: '2025-01-19',
+      type: 'expense',
+      category: '办公费用',
+      amount: 2500,
+      description: '购买办公用品',
+      account: '现金',
+      status: 'confirmed'
+    },
+    {
+      id: '3',
+      date: '2025-01-18',
+      type: 'income',
+      category: '服务收入',
+      amount: 30000,
+      description: '咨询服务费用',
+      account: '银行存款',
+      status: 'confirmed'
+    },
+    {
+      id: '4',
+      date: '2025-01-17',
+      type: 'expense',
+      category: '工资福利',
+      amount: 80000,
+      description: '1月份员工工资',
+      account: '银行存款',
+      status: 'confirmed'
+    }
+  ],
+
+  // 账户信息
+  accounts: [
+    { id: '1', name: '银行存款', balance: 150000 },
+    { id: '2', name: '现金', balance: 5000 },
+    { id: '3', name: '应收账款', balance: 20000 },
+    { id: '4', name: '固定资产', balance: 500000 }
+  ]
+};
+
+// 凭证管理相关Mock数据
+const voucherMockData = {
+  list: [
+    {
+      id: 'V2025001',
+      date: '2025-01-20',
+      type: '收款凭证',
+      amount: 50000,
+      summary: '收到产品销售货款',
+      status: '已审核',
+      creator: '张三',
+      createTime: '2025-01-20 09:30:00'
+    },
+    {
+      id: 'V2025002',
+      date: '2025-01-19',
+      type: '付款凭证',
+      amount: 2500,
+      summary: '支付办公费用',
+      status: '已审核',
+      creator: '李四',
+      createTime: '2025-01-19 14:20:00'
+    },
+    {
+      id: 'V2025003',
+      date: '2025-01-18',
+      type: '转账凭证',
+      amount: 30000,
+      summary: '确认服务收入',
+      status: '待审核',
+      creator: '张三',
+      createTime: '2025-01-18 16:45:00'
+    }
+  ]
+};
+
+// 财务报表相关Mock数据
+const reportMockData = {
+  // 资产负债表
+  balanceSheet: {
+    assets: {
+      current: 250000,
+      fixed: 500000,
+      other: 50000,
+      total: 800000
+    },
+    liabilities: {
+      current: 150000,
+      longTerm: 100000,
+      total: 250000
+    },
+    equity: {
+      capital: 500000,
+      retained: 50000,
+      total: 550000
+    }
+  },
+
+  // 利润表
+  incomeStatement: {
+    revenue: 150000,
+    cost: 80000,
+    expenses: 30000,
+    profit: 40000
+  },
+
+  // 现金流量表
+  cashFlow: {
+    operating: 60000,
+    investing: -20000,
+    financing: 10000,
+    net: 50000
+  }
+};
+
+// 预算管理相关Mock数据
+const budgetMockData = {
+  plans: [
+    {
+      id: '1',
+      year: 2025,
+      month: 1,
+      category: '办公费用',
+      budgetAmount: 5000,
+      actualAmount: 2500,
+      variance: 2500,
+      status: 'under'
+    },
+    {
+      id: '2',
+      year: 2025,
+      month: 1,
+      category: '工资福利',
+      budgetAmount: 85000,
+      actualAmount: 80000,
+      variance: 5000,
+      status: 'under'
+    },
+    {
+      id: '3',
+      year: 2025,
+      month: 1,
+      category: '销售收入',
+      budgetAmount: 120000,
+      actualAmount: 80000,
+      variance: -40000,
+      status: 'over'
+    }
+  ]
+};
+
+// 发票管理相关Mock数据
+const invoiceMockData = {
+  list: [
+    {
+      id: 'INV2025001',
+      date: '2025-01-20',
+      type: '增值税专用发票',
+      amount: 50000,
+      status: '已认证',
+      customer: 'ABC科技有限公司',
+      taxRate: 13
+    },
+    {
+      id: 'INV2025002',
+      date: '2025-01-19',
+      type: '普通发票',
+      amount: 2500,
+      status: '已入账',
+      customer: 'XYZ办公用品店',
+      taxRate: 3
+    },
+    {
+      id: 'INV2025003',
+      date: '2025-01-18',
+      type: '增值税专用发票',
+      amount: 30000,
+      status: '待认证',
+      customer: 'DEF咨询公司',
+      taxRate: 6
+    }
+  ]
+};
+
+// 数据分析相关Mock数据
+const analysisMockData = {
+  // 月度趋势数据
+  monthlyTrend: [
+    { month: '10月', income: 120000, expense: 80000, profit: 40000 },
+    { month: '11月', income: 135000, expense: 85000, profit: 50000 },
+    { month: '12月', income: 150000, expense: 90000, profit: 60000 },
+    { month: '1月', income: 80000, expense: 82500, profit: -2500 }
+  ],
+
+  // 费用分类占比
+  expenseCategories: [
+    { category: '工资福利', amount: 80000, percentage: 64 },
+    { category: '办公费用', amount: 2500, percentage: 2 },
+    { category: '房租水电', amount: 15000, percentage: 12 },
+    { category: '交通费用', amount: 8000, percentage: 6 },
+    { category: '其他', amount: 20000, percentage: 16 }
+  ]
+};
+
+// 添加财务管理相关API到mockApi
+mockApi.getAccountingRecords = () => mockApiResponse(accountingMockData.records);
+mockApi.getAccounts = () => mockApiResponse(accountingMockData.accounts);
+mockApi.addAccountingRecord = (data) => {
+  const newRecord = {
+    id: Date.now().toString(),
+    date: new Date().toISOString().split('T')[0],
+    ...data,
+    status: 'confirmed'
+  };
+  accountingMockData.records.unshift(newRecord);
+  return mockApiResponse(newRecord);
+};
+
+mockApi.getVouchers = () => mockApiResponse(voucherMockData.list);
+mockApi.getVoucherDetail = (data) => {
+  const { id } = data || {};
+  const voucher = voucherMockData.list.find(v => v.id === id) || voucherMockData.list[0];
+  return mockApiResponse(voucher);
+};
+
+mockApi.getBalanceSheet = () => mockApiResponse(reportMockData.balanceSheet);
+mockApi.getIncomeStatement = () => mockApiResponse(reportMockData.incomeStatement);
+mockApi.getCashFlow = () => mockApiResponse(reportMockData.cashFlow);
+
+mockApi.getBudgetPlans = () => mockApiResponse(budgetMockData.plans);
+mockApi.addBudgetPlan = (data) => {
+  const newPlan = {
+    id: (budgetMockData.plans.length + 1).toString(),
+    ...data
+  };
+  budgetMockData.plans.push(newPlan);
+  return mockApiResponse(newPlan);
+};
+
+mockApi.getInvoices = () => mockApiResponse(invoiceMockData.list);
+mockApi.getInvoiceDetail = (data) => {
+  const { id } = data || {};
+  const invoice = invoiceMockData.list.find(inv => inv.id === id) || invoiceMockData.list[0];
+  return mockApiResponse(invoice);
+};
+
+mockApi.getFinancialAnalysis = () => mockApiResponse(analysisMockData);
+mockApi.getMonthlyTrend = () => mockApiResponse(analysisMockData.monthlyTrend);
+mockApi.getExpenseCategories = () => mockApiResponse(analysisMockData.expenseCategories);
+
 export default mockApi;

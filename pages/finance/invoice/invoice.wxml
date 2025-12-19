@@ -1,0 +1,26 @@
+<!--pages/finance/invoice/invoice.wxml-->
+<view class="container">
+  <view class="page-header">
+    <text class="back-btn" bindtap="goBack">← 返回</text>
+    <text class="title">发票管理</text>
+    <view class="empty"></view>
+  </view>
+
+  <view class="invoices-list">
+    <view wx:for="{{invoices}}" wx:key="id" class="invoice-item" bindtap="viewInvoiceDetail" data-id="{{item.id}}">
+      <view class="invoice-header">
+        <view class="invoice-id">{{item.id}}</view>
+        <view class="invoice-status {{item.status === '已认证' ? 'verified' : item.status === '已入账' ? 'recorded' : 'pending'}}">
+          {{item.status}}
+        </view>
+      </view>
+      <view class="invoice-info">
+        <view class="invoice-date">{{item.date}}</view>
+        <view class="invoice-type">{{item.type}}</view>
+        <view class="invoice-amount">¥{{item.amount.toLocaleString()}}</view>
+      </view>
+      <view class="invoice-customer">客户：{{item.customer}}</view>
+      <view class="invoice-tax">税率：{{item.taxRate}}%</view>
+    </view>
+  </view>
+</view>

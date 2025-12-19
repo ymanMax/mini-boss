@@ -1,0 +1,97 @@
+<!--pages/finance/accounting/accounting.wxml-->
+<view class="container">
+  <!-- 页面标题 -->
+  <view class="page-header">
+    <text class="title">财务管理系统</text>
+    <button class="add-btn" bindtap="showAddForm">+ 新增记账</button>
+  </view>
+
+  <!-- 功能导航 -->
+  <view class="function-nav">
+    <view class="nav-item" bindtap="goToVoucher">
+      <text class="nav-icon">📝</text>
+      <text class="nav-text">凭证管理</text>
+    </view>
+    <view class="nav-item" bindtap="goToReport">
+      <text class="nav-icon">📊</text>
+      <text class="nav-text">财务报表</text>
+    </view>
+    <view class="nav-item" bindtap="goToBudget">
+      <text class="nav-icon">📈</text>
+      <text class="nav-text">预算管理</text>
+    </view>
+    <view class="nav-item" bindtap="goToInvoice">
+      <text class="nav-icon">🧾</text>
+      <text class="nav-text">发票管理</text>
+    </view>
+    <view class="nav-item" bindtap="goToAnalysis">
+      <text class="nav-icon">📉</text>
+      <text class="nav-text">数据分析</text>
+    </view>
+  </view>
+
+  <!-- 账户余额信息 -->
+  <view class="account-info">
+    <view class="section-title">账户余额</view>
+    <view class="account-list">
+      <view wx:for="{{accounts}}" wx:key="id" class="account-item">
+        <text class="account-name">{{item.name}}</text>
+        <text class="account-balance">¥{{item.balance.toLocaleString()}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 记账记录 -->
+  <view class="records-section">
+    <view class="section-title">近期记账</view>
+    <view class="records-list">
+      <view wx:for="{{records}}" wx:key="id" class="record-item">
+        <view class="record-left">
+          <view class="record-date">{{item.date}}</view>
+          <view class="record-category">{{item.category}}</view>
+          <view class="record-desc">{{item.description}}</view>
+        </view>
+        <view class="record-right">
+          <text class="record-amount {{item.type === 'income' ? 'income' : 'expense'}}">
+            {{item.type === 'income' ? '+' : '-'}}¥{{item.amount.toLocaleString()}}
+          </text>
+          <text class="record-account">{{item.account}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 添加记账模态框 -->
+  <view class="modal" wx:if="{{showAddModal}}" bindtap="hideAddForm">
+    <view class="modal-content" catchtap="stopPropagation">
+      <view class="modal-header">
+        <text>新增记账</text>
+        <text class="close-btn" bindtap="hideAddForm">×</text>
+      </view>
+      <view class="form-item">
+        <text class="label">交易类型：</text>
+        <radio-group bindchange="handleInputChange" data-field="type">
+          <radio value="income">收入</radio>
+          <radio value="expense">支出</radio>
+        </radio-group>
+      </view>
+      <view class="form-item">
+        <text class="label">类别：</text>
+        <input class="input" placeholder="请输入类别" value="{{newRecord.category}}" bindinput="handleInputChange" data-field="category" />
+      </view>
+      <view class="form-item">
+        <text class="label">金额：</text>
+        <input class="input" placeholder="请输入金额" type="digit" value="{{newRecord.amount}}" bindinput="handleInputChange" data-field="amount" />
+      </view>
+      <view class="form-item">
+        <text class="label">账户：</text>
+        <input class="input" placeholder="请选择账户" value="{{newRecord.account}}" bindinput="handleInputChange" data-field="account" />
+      </view>
+      <view class="form-item">
+        <text class="label">描述：</text>
+        <input class="input" placeholder="请输入描述" value="{{newRecord.description}}" bindinput="handleInputChange" data-field="description" />
+      </view>
+      <button class="submit-btn" bindtap="addRecord">确认添加</button>
+    </view>
+  </view>
+</view>

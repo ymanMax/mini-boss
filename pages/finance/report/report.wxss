@@ -1,0 +1,95 @@
+/* pages/finance/report/report.wxss */
+.container {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx;
+  background-color: white;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.back-btn {
+  font-size: 28rpx;
+  color: #019fa0;
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.empty {
+  width: 80rpx;
+}
+
+.tab-bar {
+  display: flex;
+  background-color: white;
+  margin: 20rpx;
+  border-radius: 10rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.tab-item {
+  flex: 1;
+  padding: 30rpx;
+  text-align: center;
+  font-size: 28rpx;
+  color: #666;
+  border-bottom: 3rpx solid transparent;
+}
+
+.tab-item.active {
+  color: #019fa0;
+  border-bottom-color: #019fa0;
+}
+
+.report-content {
+  padding: 20rpx;
+}
+
+.report-section {
+  background-color: white;
+  border-radius: 10rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+  padding-bottom: 15rpx;
+  border-bottom: 1rpx solid #eee;
+}
+
+.report-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 0;
+  font-size: 28rpx;
+  color: #333;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.report-item:last-child {
+  border-bottom: none;
+}
+
+.report-item.total {
+  font-weight: bold;
+  color: #019fa0;
+  background-color: #f9f9f9;
+  padding: 25rpx;
+  border-radius: 8rpx;
+  margin-top: 10rpx;
+}

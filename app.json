@@ -14,7 +14,13 @@
     "pages/secPage/onlineResume/onlineResume",
     "pages/secPage/userBaseInfo/userBaseInfo",
     "pages/secPage/imageCut/imageCut",
-    "pages/secPage/editUserDesc/editUserDecs"
+    "pages/secPage/editUserDesc/editUserDecs",
+    "pages/finance/accounting/accounting",
+    "pages/finance/voucher/voucher",
+    "pages/finance/report/report",
+    "pages/finance/budget/budget",
+    "pages/finance/invoice/invoice",
+    "pages/finance/analysis/analysis"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
@@ -32,6 +38,12 @@
         "iconPath": "public/zhiwei.png",
         "selectedIconPath": "public/zhiweiActive.png",
         "text": "职位"
+      },
+      {
+        "pagePath": "pages/finance/accounting/accounting",
+        "iconPath": "public/finance.png",
+        "selectedIconPath": "public/financeActive.png",
+        "text": "财务"
       },
       {
         "pagePath": "pages/message/message",
