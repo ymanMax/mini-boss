@@ -1,0 +1,149 @@
+/* supplier/manage.wxss */
+.container {
+  background-color: #f6f6f6;
+  min-height: 100vh;
+  padding: 20rpx;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30rpx;
+  padding: 20rpx;
+  background-color: white;
+  border-radius: 10rpx;
+}
+
+.page-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.add-btn {
+  background-color: #019fa0;
+  color: white;
+  border-radius: 25rpx;
+  font-size: 28rpx;
+  padding: 15rpx 25rpx;
+}
+
+.search-bar {
+  display: flex;
+  margin-bottom: 30rpx;
+  background-color: white;
+  padding: 20rpx;
+  border-radius: 10rpx;
+}
+
+.search-input {
+  flex: 1;
+  height: 70rpx;
+  border: 1rpx solid #ddd;
+  border-radius: 35rpx;
+  padding: 0 20rpx;
+  font-size: 28rpx;
+  margin-right: 20rpx;
+}
+
+.search-btn {
+  background-color: #019fa0;
+  color: white;
+  border-radius: 35rpx;
+  font-size: 28rpx;
+  padding: 0 30rpx;
+}
+
+.supplier-list {
+  margin-bottom: 20rpx;
+}
+
+.supplier-item {
+  background-color: white;
+  margin-bottom: 20rpx;
+  padding: 30rpx;
+  border-radius: 10rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.supplier-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.supplier-name {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.supplier-rating {
+  font-size: 26rpx;
+  color: #019fa0;
+}
+
+.supplier-info {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20rpx;
+}
+
+.contact, .phone {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 10rpx;
+}
+
+.supplier-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20rpx;
+}
+
+.industry {
+  font-size: 26rpx;
+  color: #888;
+}
+
+.status {
+  font-size: 26rpx;
+  padding: 5rpx 15rpx;
+  border-radius: 15rpx;
+}
+
+.status.active {
+  background-color: #e8f5e8;
+  color: #4caf50;
+}
+
+.supplier-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.action-btn {
+  margin-left: 15rpx;
+  font-size: 26rpx;
+  padding: 10rpx 20rpx;
+  border-radius: 5rpx;
+}
+
+.action-btn.view {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.action-btn.edit {
+  background-color: #fff3e0;
+  color: #ff9800;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 100rpx 0;
+  color: #999;
+  font-size: 28rpx;
+}

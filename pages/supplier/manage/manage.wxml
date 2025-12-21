@@ -1,0 +1,42 @@
+<!--supplier/manage.wxml-->
+<view class="container">
+  <view class="page-header">
+    <text class="page-title">供应商管理</text>
+    <button class="add-btn" bindtap="addSupplier">+ 新增</button>
+  </view>
+
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <input class="search-input" placeholder="搜索供应商名称或联系人" value="{{searchKeyword}}" bindinput="onSearchInput" />
+    <button class="search-btn" bindtap="searchSupplier">搜索</button>
+  </view>
+
+  <!-- 供应商列表 -->
+  <view class="supplier-list">
+    <block wx:for="{{supplierList}}" wx:key="id">
+      <view class="supplier-item">
+        <view class="supplier-header">
+          <view class="supplier-name">{{item.supplierName}}</view>
+          <view class="supplier-rating">评分: {{item.rating}}/5</view>
+        </view>
+        <view class="supplier-info">
+          <text class="contact">联系人: {{item.contactPerson}}</text>
+          <text class="phone">电话: {{item.phone}}</text>
+        </view>
+        <view class="supplier-meta">
+          <text class="industry">{{item.industry}}</text>
+          <text class="status {{item.status}}">{{item.status === 'active' ? '合作中' : '已停用'}}</text>
+        </view>
+        <view class="supplier-actions">
+          <button class="action-btn view" bindtap="viewSupplier" data-id="{{item.id}}">查看</button>
+          <button class="action-btn edit" bindtap="editSupplier" data-id="{{item.id}}">编辑</button>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{supplierList.length === 0}}">
+    <text>暂无供应商数据</text>
+  </view>
+</view>

@@ -81,5 +81,36 @@ Page({
   },
   onAbort(e) {
     console.log('onAbort', e)
+  },
+
+  // 供应链管理系统入口跳转函数
+  goToSupplierManage() {
+    wx.navigateTo({
+      url: '/pages/supplier/manage/manage'
+    })
+  },
+
+  goToPurchaseOrder() {
+    wx.navigateTo({
+      url: '/pages/purchase/order/order'
+    })
+  },
+
+  goToInventoryManage() {
+    wx.navigateTo({
+      url: '/pages/inventory/manage/manage'
+    })
+  },
+
+  goToLogisticsTracking() {
+    wx.navigateTo({
+      url: '/pages/logistics/tracking/tracking'
+    })
+  },
+
+  goToAnalytics() {
+    wx.navigateTo({
+      url: '/pages/analytics/supplychain/supplychain'
+    })
   }
 })

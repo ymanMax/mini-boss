@@ -1,0 +1,57 @@
+<!--purchase/order/order.wxml-->
+<view class="container">
+  <view class="page-header">
+    <text class="page-title">采购订单管理</text>
+    <button class="add-btn" bindtap="addOrder">+ 新建订单</button>
+  </view>
+
+  <!-- 订单状态筛选 -->
+  <view class="filter-bar">
+    <button class="filter-btn {{currentFilter === '' ? 'active' : ''}}" bindtap="filterOrders" data-status="">全部</button>
+    <button class="filter-btn {{currentFilter === 'pending' ? 'active' : ''}}" bindtap="filterOrders" data-status="pending">待审批</button>
+    <button class="filter-btn {{currentFilter === 'approved' ? 'active' : ''}}" bindtap="filterOrders" data-status="approved">已批准</button>
+    <button class="filter-btn {{currentFilter === 'rejected' ? 'active' : ''}}" bindtap="filterOrders" data-status="rejected">已拒绝</button>
+  </view>
+
+  <!-- 订单列表 -->
+  <view class="order-list">
+    <block wx:for="{{filteredOrders}}" wx:key="id">
+      <view class="order-item">
+        <view class="order-header">
+          <view class="order-number">订单号: {{item.id}}</view>
+          <view class="order-status {{item.status}}">
+            <text wx:if="{{item.status === 'pending'}}">待审批</text>
+            <text wx:if="{{item.status === 'approved'}}">已批准</text>
+            <text wx:if="{{item.status === 'rejected'}}">已拒绝</text>
+          </view>
+        </view>
+        <view class="supplier-info">
+          <text>供应商: {{item.supplierName}}</text>
+        </view>
+        <view class="order-details">
+          <view class="detail-item">
+            <text>订单日期: {{item.orderDate}}</text>
+          </view>
+          <view class="detail-item">
+            <text>预计到货: {{item.expectedDeliveryDate}}</text>
+          </view>
+          <view class="detail-item">
+            <text>订单金额: ¥{{item.totalAmount}}</text>
+          </view>
+        </view>
+        <view class="order-actions">
+          <button class="action-btn view" bindtap="viewOrder" data-id="{{item.id}}">查看</button>
+          <block wx:if="{{item.status === 'pending'}}">
+            <button class="action-btn approve" bindtap="approveOrder" data-id="{{item.id}}">批准</button>
+            <button class="action-btn reject" bindtap="rejectOrder" data-id="{{item.id}}">拒绝</button>
+          </block>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{filteredOrders.length === 0}}">
+    <text>暂无订单数据</text>
+  </view>
+</view>

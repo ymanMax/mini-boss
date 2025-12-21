@@ -21,6 +21,21 @@
       </view>
     </view>
   </view>
+
+  <!-- 供应链管理系统入口 -->
+  <view class="supply-chain-entry bgc_White">
+    <view class="entry-header">
+      <text class="entry-title">供应链管理系统</text>
+      <text class="entry-desc">供应商、采购、库存、物流一体化管理</text>
+    </view>
+    <view class="entry-buttons">
+      <button class="entry-btn" bindtap="goToSupplierManage">供应商管理</button>
+      <button class="entry-btn" bindtap="goToPurchaseOrder">采购订单</button>
+      <button class="entry-btn" bindtap="goToInventoryManage">库存管理</button>
+      <button class="entry-btn" bindtap="goToLogisticsTracking">物流跟踪</button>
+      <button class="entry-btn analytics" bindtap="goToAnalytics">数据分析</button>
+    </view>
+  </view>
   <type-bar class="type-bar bgc_White db"></type-bar>
   <job-types jobTypes="{{userInfo.jobofLooking}}" bind:changeType="changeType"></job-types>
   <view class="contianer">

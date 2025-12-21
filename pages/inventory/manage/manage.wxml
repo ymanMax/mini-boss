@@ -1,0 +1,55 @@
+<!--inventory/manage/manage.wxml-->
+<view class="container">
+  <view class="page-header">
+    <text class="page-title">库存管理</text>
+    <button class="add-btn" bindtap="addInventory">+ 新增</button>
+  </view>
+
+  <!-- 库存预警提示 -->
+  <view class="alert-section" wx:if="{{hasLowStock}}">
+    <text class="alert-title">⚠️ 库存预警</text>
+    <text class="alert-text">有 {{lowStockCount}} 种商品库存低于安全库存</text>
+  </view>
+
+  <!-- 库存列表 -->
+  <view class="inventory-list">
+    <block wx:for="{{inventoryList}}" wx:key="id">
+      <view class="inventory-item {{item.currentStock < item.safetyStock ? 'low-stock' : ''}}">
+        <view class="inventory-header">
+          <view class="product-name">{{item.productName}}</view>
+          <view class="stock-status">
+            <text wx:if="{{item.currentStock < item.safetyStock}}" class="low">库存不足</text>
+            <text wx:else class="normal">库存正常</text>
+          </view>
+        </view>
+        <view class="inventory-details">
+          <view class="detail-row">
+            <text class="label">当前库存:</text>
+            <text class="value">{{item.currentStock}}{{item.unit}}</text>
+          </view>
+          <view class="detail-row">
+            <text class="label">安全库存:</text>
+            <text class="value">{{item.safetyStock}}{{item.unit}}</text>
+          </view>
+          <view class="detail-row">
+            <text class="label">类别:</text>
+            <text class="value">{{item.category}}</text>
+          </view>
+          <view class="detail-row">
+            <text class="label">仓库:</text>
+            <text class="value">{{item.warehouse}}</text>
+          </view>
+        </view>
+        <view class="inventory-actions">
+          <button class="action-btn view" bindtap="viewInventory" data-id="{{item.id}}">查看</button>
+          <button class="action-btn edit" bindtap="editInventory" data-id="{{item.id}}">编辑</button>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{inventoryList.length === 0}}">
+    <text>暂无库存数据</text>
+  </view>
+</view>

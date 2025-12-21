@@ -520,6 +520,177 @@ const surveyMockData = {
   ]
 };
 
+// 供应链管理相关Mock数据
+const supplierMockData = {
+  // 供应商列表
+  list: [
+    {
+      id: '1',
+      supplierName: '华为技术有限公司',
+      contactPerson: '张明',
+      phone: '13900139001',
+      email: 'zhangming@huawei.com',
+      address: '深圳市龙岗区坂田华为基地',
+      industry: '通信设备',
+      rating: 4.8,
+      status: 'active',
+      createTime: '2024-05-10',
+      lastCooperationTime: '2025-01-20'
+    },
+    {
+      id: '2',
+      supplierName: '阿里巴巴集团',
+      contactPerson: '李强',
+      phone: '13900139002',
+      email: 'liqiang@alibaba.com',
+      address: '杭州市余杭区阿里巴巴园区',
+      industry: '电商平台',
+      rating: 4.6,
+      status: 'active',
+      createTime: '2024-03-15',
+      lastCooperationTime: '2025-01-18'
+    },
+    {
+      id: '3',
+      supplierName: '腾讯科技有限公司',
+      contactPerson: '王芳',
+      phone: '13900139003',
+      email: 'wangfang@tencent.com',
+      address: '深圳市南山区腾讯大厦',
+      industry: '互联网服务',
+      rating: 4.9,
+      status: 'active',
+      createTime: '2024-08-20',
+      lastCooperationTime: '2025-01-15'
+    }
+  ]
+};
+
+const purchaseOrderMockData = {
+  // 采购订单列表
+  list: [
+    {
+      id: 'PO2025001',
+      supplierId: '1',
+      supplierName: '华为技术有限公司',
+      orderDate: '2025-01-15',
+      expectedDeliveryDate: '2025-01-25',
+      actualDeliveryDate: '',
+      totalAmount: 500000,
+      status: 'approved',
+      approver: '张经理',
+      approvalTime: '2025-01-16',
+      items: [
+        { productId: '1', productName: '服务器设备', quantity: 10, unitPrice: 50000 }
+      ]
+    },
+    {
+      id: 'PO2025002',
+      supplierId: '2',
+      supplierName: '阿里巴巴集团',
+      orderDate: '2025-01-18',
+      expectedDeliveryDate: '2025-01-28',
+      actualDeliveryDate: '',
+      totalAmount: 200000,
+      status: 'pending',
+      approver: '',
+      approvalTime: '',
+      items: [
+        { productId: '2', productName: '云服务套餐', quantity: 5, unitPrice: 40000 }
+      ]
+    }
+  ]
+};
+
+const inventoryMockData = {
+  // 库存列表
+  list: [
+    {
+      id: '1',
+      productId: '1',
+      productName: '服务器设备',
+      category: '硬件设备',
+      currentStock: 25,
+      safetyStock: 10,
+      unit: '台',
+      warehouse: '北京 warehouse',
+      lastUpdateTime: '2025-01-20'
+    },
+    {
+      id: '2',
+      productId: '2',
+      productName: '云服务套餐',
+      category: '软件服务',
+      currentStock: 8,
+      safetyStock: 5,
+      unit: '套',
+      warehouse: '上海 warehouse',
+      lastUpdateTime: '2025-01-18'
+    },
+    {
+      id: '3',
+      productId: '3',
+      productName: '网络交换机',
+      category: '网络设备',
+      currentStock: 5,
+      safetyStock: 10,
+      unit: '台',
+      warehouse: '广州 warehouse',
+      lastUpdateTime: '2025-01-15'
+    }
+  ]
+};
+
+const logisticsMockData = {
+  // 物流信息
+  list: [
+    {
+      id: '1',
+      orderId: 'PO2025001',
+      logisticsNumber: 'SF1234567890',
+      carrier: '顺丰快递',
+      status: 'transit',
+      currentLocation: '北京中转站',
+      updateTime: '2025-01-20 14:30:00',
+      trackingHistory: [
+        { time: '2025-01-16 09:00:00', location: '深圳仓库', status: '已发货' },
+        { time: '2025-01-17 15:00:00', location: '广州中转站', status: '运输中' },
+        { time: '2025-01-20 14:30:00', location: '北京中转站', status: '运输中' }
+      ]
+    },
+    {
+      id: '2',
+      orderId: 'PO2025002',
+      logisticsNumber: 'YT0987654321',
+      carrier: '圆通快递',
+      status: 'shipped',
+      currentLocation: '杭州仓库',
+      updateTime: '2025-01-19 10:00:00',
+      trackingHistory: [
+        { time: '2025-01-18 16:00:00', location: '杭州仓库', status: '已发货' }
+      ]
+    }
+  ]
+};
+
+const supplyChainAnalyticsData = {
+  // 供应链数据分析
+  supplierPerformance: [
+    { supplier: '华为技术', onTimeDelivery: 98, qualityRate: 99, costEfficiency: 95 },
+    { supplier: '阿里巴巴', onTimeDelivery: 95, qualityRate: 97, costEfficiency: 93 },
+    { supplier: '腾讯科技', onTimeDelivery: 99, qualityRate: 98, costEfficiency: 96 }
+  ],
+  inventoryTurnover: [
+    { month: '10月', turnover: 5.2 },
+    { month: '11月', turnover: 4.8 },
+    { month: '12月', turnover: 5.5 },
+    { month: '1月', turnover: 6.1 }
+  ],
+  orderFulfillment: [
+    { period: '周', fulfilled: 98, pending: 2, delayed: 0 }
+  ]
+};
+
 // 为现有的mockApi添加CRM相关接口
 mockApi.getCustomerList = () => mockApiResponse(customerMockData.list);
 mockApi.getCustomerFollowRecords = (data) => {
@@ -538,5 +709,30 @@ mockApi.getContractList = () => mockApiResponse(contractMockData.list);
 mockApi.getOrderList = () => mockApiResponse(orderMockData.list);
 mockApi.getServiceTickets = () => mockApiResponse(serviceMockData.tickets);
 mockApi.getSurveyList = () => mockApiResponse(surveyMockData.list);
+
+// 添加供应链管理相关接口
+mockApi.getSupplierList = () => mockApiResponse(supplierMockData.list);
+mockApi.getPurchaseOrderList = () => mockApiResponse(purchaseOrderMockData.list);
+mockApi.getInventoryList = () => mockApiResponse(inventoryMockData.list);
+mockApi.getLogisticsList = () => mockApiResponse(logisticsMockData.list);
+mockApi.getSupplyChainAnalytics = () => mockApiResponse(supplyChainAnalyticsData);
+mockApi.approvePurchaseOrder = (data) => {
+  const { orderId, approver } = data || {};
+  const order = purchaseOrderMockData.list.find(o => o.id === orderId);
+  if (order) {
+    order.status = 'approved';
+    order.approver = approver;
+    order.approvalTime = new Date().toISOString().split('T')[0];
+  }
+  return mockApiResponse({ success: true });
+};
+mockApi.rejectPurchaseOrder = (data) => {
+  const { orderId, reason } = data || {};
+  const order = purchaseOrderMockData.list.find(o => o.id === orderId);
+  if (order) {
+    order.status = 'rejected';
+  }
+  return mockApiResponse({ success: true });
+};
 
 export default mockApi;
