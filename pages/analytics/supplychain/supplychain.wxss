@@ -1,0 +1,151 @@
+/* analytics/supplychain/supplychain.wxss */
+.container {
+  background-color: #f6f6f6;
+  min-height: 100vh;
+  padding: 20rpx;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30rpx;
+  padding: 20rpx;
+  background-color: white;
+  border-radius: 10rpx;
+}
+
+.page-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.analytics-section {
+  background-color: white;
+  margin-bottom: 30rpx;
+  padding: 30rpx;
+  border-radius: 10rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+  padding-bottom: 15rpx;
+  border-bottom: 1rpx solid #eee;
+}
+
+.performance-list {
+  margin-top: 20rpx;
+}
+
+.performance-item {
+  margin-bottom: 25rpx;
+  padding: 20rpx;
+  background-color: #fafafa;
+  border-radius: 8rpx;
+}
+
+.performance-item:last-child {
+  margin-bottom: 0;
+}
+
+.supplier-name {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15rpx;
+}
+
+.metrics {
+  display: flex;
+  justify-content: space-between;
+}
+
+.metric-item {
+  flex: 1;
+  text-align: center;
+}
+
+.metric-label {
+  display: block;
+  font-size: 24rpx;
+  color: #666;
+  margin-bottom: 5rpx;
+}
+
+.metric-value {
+  display: block;
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #019fa0;
+}
+
+.turnover-list {
+  margin-top: 20rpx;
+}
+
+.turnover-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #eee;
+}
+
+.turnover-item:last-child {
+  border-bottom: none;
+}
+
+.month {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.turnover-value {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.fulfillment-list {
+  margin-top: 20rpx;
+}
+
+.fulfillment-item {
+  margin-bottom: 20rpx;
+}
+
+.period {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15rpx;
+}
+
+.fulfillment-stats {
+  display: flex;
+  justify-content: space-between;
+}
+
+.stat-item {
+  flex: 1;
+  text-align: center;
+}
+
+.stat-label {
+  display: block;
+  font-size: 24rpx;
+  color: #666;
+  margin-bottom: 5rpx;
+}
+
+.stat-value {
+  display: block;
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+}

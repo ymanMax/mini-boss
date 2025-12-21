@@ -1,0 +1,123 @@
+/* logistics/tracking/tracking.wxss */
+.container {
+  background-color: #f6f6f6;
+  min-height: 100vh;
+  padding: 20rpx;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30rpx;
+  padding: 20rpx;
+  background-color: white;
+  border-radius: 10rpx;
+}
+
+.page-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.logistics-list {
+  margin-bottom: 20rpx;
+}
+
+.logistics-item {
+  background-color: white;
+  margin-bottom: 20rpx;
+  padding: 30rpx;
+  border-radius: 10rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.logistics-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20rpx;
+}
+
+.order-info {
+  flex: 1;
+}
+
+.order-number {
+  display: block;
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5rpx;
+}
+
+.logistics-number {
+  display: block;
+  font-size: 26rpx;
+  color: #666;
+}
+
+.status-badge {
+  font-size: 26rpx;
+  padding: 8rpx 15rpx;
+  border-radius: 15rpx;
+  white-space: nowrap;
+}
+
+.status-badge.shipped {
+  background-color: #fff3e0;
+  color: #ff9800;
+}
+
+.status-badge.transit {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.status-badge.delivered {
+  background-color: #e8f5e8;
+  color: #4caf50;
+}
+
+.status-badge.received {
+  background-color: #f3e5f5;
+  color: #9c27b0;
+}
+
+.logistics-details {
+  margin-bottom: 20rpx;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15rpx;
+}
+
+.label {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.value {
+  font-size: 26rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.track-btn {
+  width: 100%;
+  background-color: #019fa0;
+  color: white;
+  border-radius: 5rpx;
+  font-size: 28rpx;
+  padding: 15rpx;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 100rpx 0;
+  color: #999;
+  font-size: 28rpx;
+}

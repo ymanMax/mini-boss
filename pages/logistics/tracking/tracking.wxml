@@ -1,0 +1,46 @@
+<!--logistics/tracking/tracking.wxml-->
+<view class="container">
+  <view class="page-header">
+    <text class="page-title">物流跟踪管理</text>
+  </view>
+
+  <!-- 物流列表 -->
+  <view class="logistics-list">
+    <block wx:for="{{logisticsList}}" wx:key="id">
+      <view class="logistics-item">
+        <view class="logistics-header">
+          <view class="order-info">
+            <text class="order-number">订单: {{item.orderId}}</text>
+            <text class="logistics-number">运单号: {{item.logisticsNumber}}</text>
+          </view>
+          <view class="status-badge {{item.status}}">
+            <text wx:if="{{item.status === 'shipped'}}">已发货</text>
+            <text wx:if="{{item.status === 'transit'}}">运输中</text>
+            <text wx:if="{{item.status === 'delivered'}}">已送达</text>
+            <text wx:if="{{item.status === 'received'}}">已签收</text>
+          </view>
+        </view>
+        <view class="logistics-details">
+          <view class="detail-item">
+            <text class="label">承运商:</text>
+            <text class="value">{{item.carrier}}</text>
+          </view>
+          <view class="detail-item">
+            <text class="label">当前位置:</text>
+            <text class="value">{{item.currentLocation}}</text>
+          </view>
+          <view class="detail-item">
+            <text class="label">更新时间:</text>
+            <text class="value">{{item.updateTime}}</text>
+          </view>
+        </view>
+        <button class="track-btn" bindtap="viewTracking" data-id="{{item.id}}">查看物流轨迹</button>
+      </view>
+    </block>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{logisticsList.length === 0}}">
+    <text>暂无物流数据</text>
+  </view>
+</view>

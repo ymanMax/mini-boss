@@ -14,7 +14,12 @@
     "pages/secPage/onlineResume/onlineResume",
     "pages/secPage/userBaseInfo/userBaseInfo",
     "pages/secPage/imageCut/imageCut",
-    "pages/secPage/editUserDesc/editUserDecs"
+    "pages/secPage/editUserDesc/editUserDecs",
+    "pages/supplier/manage/manage",
+    "pages/purchase/order/order",
+    "pages/inventory/manage/manage",
+    "pages/logistics/tracking/tracking",
+    "pages/analytics/supplychain/supplychain"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

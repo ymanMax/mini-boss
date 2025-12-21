@@ -41,3 +41,51 @@
   margin-left: -50%;
   background-color: rgba(248, 248, 248, 1);
 }
+
+/* 供应链管理系统入口样式 */
+.supply-chain-entry {
+  margin: 20rpx 10rpx;
+  padding: 30rpx;
+  border-radius: 15rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.entry-header {
+  text-align: center;
+  margin-bottom: 30rpx;
+}
+
+.entry-title {
+  display: block;
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+
+.entry-desc {
+  display: block;
+  font-size: 26rpx;
+  color: #666;
+}
+
+.entry-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.entry-btn {
+  width: 48%;
+  margin-bottom: 20rpx;
+  background-color: #019fa0;
+  color: white;
+  border-radius: 10rpx;
+  font-size: 28rpx;
+  padding: 20rpx;
+}
+
+.entry-btn.analytics {
+  width: 100%;
+  background-color: #4caf50;
+}

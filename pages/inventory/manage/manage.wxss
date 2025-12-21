@@ -1,0 +1,146 @@
+/* inventory/manage/manage.wxss */
+.container {
+  background-color: #f6f6f6;
+  min-height: 100vh;
+  padding: 20rpx;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30rpx;
+  padding: 20rpx;
+  background-color: white;
+  border-radius: 10rpx;
+}
+
+.page-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.add-btn {
+  background-color: #019fa0;
+  color: white;
+  border-radius: 25rpx;
+  font-size: 28rpx;
+  padding: 15rpx 25rpx;
+}
+
+.alert-section {
+  background-color: #fff3e0;
+  border-left: 5rpx solid #ff9800;
+  padding: 20rpx;
+  margin-bottom: 30rpx;
+  border-radius: 10rpx;
+}
+
+.alert-title {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #f57c00;
+  display: block;
+  margin-bottom: 10rpx;
+}
+
+.alert-text {
+  font-size: 26rpx;
+  color: #f57c00;
+}
+
+.inventory-list {
+  margin-bottom: 20rpx;
+}
+
+.inventory-item {
+  background-color: white;
+  margin-bottom: 20rpx;
+  padding: 30rpx;
+  border-radius: 10rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.inventory-item.low-stock {
+  border-left: 5rpx solid #f44336;
+}
+
+.inventory-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.product-name {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.stock-status {
+  font-size: 26rpx;
+  padding: 5rpx 15rpx;
+  border-radius: 15rpx;
+}
+
+.stock-status.low {
+  background-color: #ffebee;
+  color: #f44336;
+}
+
+.stock-status.normal {
+  background-color: #e8f5e8;
+  color: #4caf50;
+}
+
+.inventory-details {
+  margin-bottom: 20rpx;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15rpx;
+}
+
+.label {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.value {
+  font-size: 26rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.inventory-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.action-btn {
+  margin-left: 15rpx;
+  font-size: 26rpx;
+  padding: 10rpx 20rpx;
+  border-radius: 5rpx;
+}
+
+.action-btn.view {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.action-btn.edit {
+  background-color: #fff3e0;
+  color: #ff9800;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 100rpx 0;
+  color: #999;
+  font-size: 28rpx;
+}

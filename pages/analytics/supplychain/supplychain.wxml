@@ -1,0 +1,71 @@
+<!--analytics/supplychain/supplychain.wxml-->
+<view class="container">
+  <view class="page-header">
+    <text class="page-title">供应链数据分析</text>
+  </view>
+
+  <!-- 供应商绩效分析 -->
+  <view class="analytics-section">
+    <view class="section-title">供应商绩效分析</view>
+    <view class="performance-list">
+      <block wx:for="{{analyticsData.supplierPerformance}}" wx:key="supplier">
+        <view class="performance-item">
+          <view class="supplier-name">{{item.supplier}}</view>
+          <view class="metrics">
+            <view class="metric-item">
+              <text class="metric-label">准时交付率</text>
+              <text class="metric-value">{{item.onTimeDelivery}}%</text>
+            </view>
+            <view class="metric-item">
+              <text class="metric-label">质量合格率</text>
+              <text class="metric-value">{{item.qualityRate}}%</text>
+            </view>
+            <view class="metric-item">
+              <text class="metric-label">成本效益</text>
+              <text class="metric-value">{{item.costEfficiency}}%</text>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 库存周转率 -->
+  <view class="analytics-section">
+    <view class="section-title">库存周转率</view>
+    <view class="turnover-list">
+      <block wx:for="{{analyticsData.inventoryTurnover}}" wx:key="month">
+        <view class="turnover-item">
+          <view class="month">{{item.month}}</view>
+          <view class="turnover-value">{{item.turnover}}次</view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 订单履行情况 -->
+  <view class="analytics-section">
+    <view class="section-title">订单履行情况</view>
+    <view class="fulfillment-list">
+      <block wx:for="{{analyticsData.orderFulfillment}}" wx:key="period">
+        <view class="fulfillment-item">
+          <view class="period">{{item.period}}</view>
+          <view class="fulfillment-stats">
+            <view class="stat-item">
+              <text class="stat-label">已完成</text>
+              <text class="stat-value">{{item.fulfilled}}%</text>
+            </view>
+            <view class="stat-item">
+              <text class="stat-label">待处理</text>
+              <text class="stat-value">{{item.pending}}%</text>
+            </view>
+            <view class="stat-item">
+              <text class="stat-label">已延迟</text>
+              <text class="stat-value">{{item.delayed}}%</text>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>
